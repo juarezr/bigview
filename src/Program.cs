@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace viewparquet
+namespace bigview
 {
     static class Program
     {
