@@ -14,8 +14,11 @@
     * SchemaRegistryDotNet
   - Delimited text files, CSV.
   - Fixed length text files
+  - Compressed text files: gz, zip, snappy, lz4, bz2, etc...
   - [ORC](https://orc.apache.org)
   - Support external schema on Parquet/Avro , etc...
+  - Support nested types on Parquet/Avro , etc...
+  - Support querying databases and exporting to file formats
 * Reading from cloud:
   - [Amazon S3](https://aws.amazon.com/s3/)
   - [Google Cloud Storage](https://cloud.google.com/storage/)

@@ -46,6 +46,7 @@ Desktop app for displaying data from common big data file formats as parquet, av
   - Fixed length text files
   - [ORC](https://orc.apache.org)
   - Support external schema on Parquet/Avro , etc...
+  - Support nested types on Parquet/Avro , etc...
 * Reading from cloud:
   - [Amazon S3](https://aws.amazon.com/s3/)
   - [Google Cloud Storage](https://cloud.google.com/storage/)
