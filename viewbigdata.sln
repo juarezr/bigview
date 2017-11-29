@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bigview", "src\bigview.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridPrintPreviewLib", "gridlib\GridPrintPreviewLib.csproj", "{2DAD67E3-FF39-4102-9559-1D179F8BCCC5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualDataTableLib", "VirtualDataTableLib\VirtualDataTableLib.csproj", "{F911EDC3-9CDC-4B0D-B1C7-77465629ACB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2DAD67E3-FF39-4102-9559-1D179F8BCCC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DAD67E3-FF39-4102-9559-1D179F8BCCC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DAD67E3-FF39-4102-9559-1D179F8BCCC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F911EDC3-9CDC-4B0D-B1C7-77465629ACB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F911EDC3-9CDC-4B0D-B1C7-77465629ACB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F911EDC3-9CDC-4B0D-B1C7-77465629ACB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F911EDC3-9CDC-4B0D-B1C7-77465629ACB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

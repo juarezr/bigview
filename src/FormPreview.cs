@@ -1,12 +1,12 @@
 ﻿using GridPrintPreviewLib;
-using Parquet;
 using System;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Windows.Forms;
+using VirtualDataTableLib;
 
-namespace viewparquet
+namespace bigview
 {
     public partial class FormPreview : Form
     {
@@ -20,14 +20,14 @@ namespace viewparquet
 
         public FormPreview(String filename) : this()
         {
-            LoadParquetFileOnGrid(filename);
+            LoadFileOnGrid(filename);
         }
 
         private void openMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                LoadParquetFileOnGrid(openFileDialog.FileName);
+                LoadFileOnGrid(openFileDialog.FileName);
             }
         }
 
@@ -45,7 +45,7 @@ namespace viewparquet
                 Console.WriteLine(file);
                 if (File.Exists(file))
                 {
-                    LoadParquetFileOnGrid(file);
+                    LoadFileOnGrid(file);
                     break;
                 }
             }
@@ -98,67 +98,68 @@ namespace viewparquet
 
         #region load
 
-        private void LoadParquetFileOnGrid(string file)
+        private DataTableCache memoryCache;
+
+        private void LoadFileOnGrid(string file)
         {
-            var options = new ParquetOptions { TreatByteArrayAsString = true };
-            var parquetDataset = ParquetReader.ReadFile(file, options);
+            int rowsPerPage = gridView.ClientRectangle.Height / gridView.RowTemplate.Height;
 
-            gridView.AutoGenerateColumns = true;
+            try
+            {
+                memoryCache = DataTableCache.GetCacheFor(file, rowsPerPage + 1);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error opening file '{file}': {ex.Message}");
+            }
 
-            var table = convertToDataTable(parquetDataset);
+            try
+            {
+                var cols = memoryCache.GetColumns();
+                foreach (DataColumn column in cols)
+                {
+                    gridView.Columns.Add(column.ColumnName, column.ColumnName);
+                }
 
-            gridView.DataSource = table;
+                long? totalRows = memoryCache.GetTotalRowCount();
 
-            // Adjust the column widths based on the displayed values.
-            gridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+                int rowCount = totalRows != null && totalRows < int.MaxValue
+                    ? (int)totalRows : rowsPerPage;
+
+                gridView.RowCount = rowCount;
+
+                statusInfo.Text = $"{rowCount} rows";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error reading records from file '{file}': {ex.Message}");
+            }
+
+            try
+            {
+                //gridView.AutoGenerateColumns = true;
+
+                // Adjust the column widths based on the displayed values.
+                gridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error displaying records from file '{file}': {ex.Message}");
+            }
 
             this.Text = Path.GetFileName(file);
 
             docToPrint = null;
 
-            statusInfo.Text = $"{parquetDataset.RowCount} rows";
-
-            viewAsButton.Visible = true;
             selectTab(tabTable, viewAsTableMenuItem);
+            viewAsButton.Visible = true;
         }
 
-        private DataTable convertToDataTable(Parquet.Data.DataSet parquetDataset)
+        private void gridView_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
-            var table = new DataTable();
-            for (int i = 0; i < parquetDataset.ColumnCount; i++)
-            {
-                var schema = parquetDataset.Schema[i];
-                var col = new DataColumn(schema.Name, schema.ColumnType);
-                table.Columns.Add(col);
-            }
-
-            for (int i = 0; i < parquetDataset.ColumnCount; i++)
-            {
-                var schema = parquetDataset.Schema[i];
-                var column = parquetDataset.GetColumn(schema);
-
-
-                for (int j = 0; j < parquetDataset.RowCount; j++)
-                {
-                    DataRow row;
-                    if (i == 0)
-                    {
-                        row = table.NewRow();
-                        table.Rows.Add(row);
-                    }
-                    else
-                        row = table.Rows[j];
-
-                    var value = column[j];
-
-                    if (value != null)
-                        row[i] = value.ToString();
-                }
-            }
-
-            return table;
+            if (memoryCache != null)
+                e.Value = memoryCache.RetrieveElement(e.RowIndex, e.ColumnIndex);
         }
-
         #endregion load
 
 
@@ -186,7 +187,7 @@ namespace viewparquet
                 int minc, minr, maxc, maxr;
                 minc = minr = int.MaxValue;
                 maxc = maxr = 0;
-                foreach(DataGridViewCell cell in grid.SelectedCells)
+                foreach (DataGridViewCell cell in grid.SelectedCells)
                 {
                     if (cell.ColumnIndex < minc)
                         minc = cell.ColumnIndex;

@@ -397,7 +397,7 @@
     <value>Ctrl+O</value>
   </data>
   <data name="openMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>146, 22</value>
   </data>
   <data name="openMenuItem.Text" xml:space="preserve">
     <value>&amp;Open</value>
@@ -406,13 +406,13 @@
     <value>Ctrl+P</value>
   </data>
   <data name="printMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>146, 22</value>
   </data>
   <data name="printMenuItem.Text" xml:space="preserve">
     <value>&amp;Print</value>
   </data>
   <data name="openMenuItemSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 6</value>
+    <value>143, 6</value>
   </data>
   <data name="fileButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -505,10 +505,10 @@
   <data name="btnPrint.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACMSURBVDhPzZJdCoAgEIS9h+DfOXrtanXLHjpFf1C7OUHJ
-        mtJTHwzI7OygoPoXIYSBtKcyxoze+xaxPBzG8QH7WuupWPJScN6MbwJLJldwUZp/L6BBR2+cawo455zr
-        YUXIXHhYqYZLsBoRQkVhNSIFSsJqxFq7ioOEW8EG60lNAY4yFBC/8k0Dor9BqQMYxW26Ehf3KwAAAABJ
-        RU5ErkJggg==
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACNSURBVDhPzZLLCYAwEERTRw751eHV1rRLD1bhD3TXjKBh
+        Y4InHwyE2dkhgah/EUIYSHsqY8zovW8Ry8NhHB+wr7WeiiUvBefN+CawZHIFF6X59wIadPTGuaaAc865
+        HlaEzIWHlWq4BKsRIVQUViNSoCSsRqy1qzhIuBVssJ7UFOAoQwHxK980IPoblDoA9s9tqxGmKLIAAAAA
+        SUVORK5CYII=
 </value>
   </data>
   <data name="btnPrint.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
@@ -524,8 +524,8 @@
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABYSURBVDhPYxiGQElJ6QMQ/wfRUCHiAFTTASgNw+h8OIZq
-        wwQyMjIfoYpIcwFNAcg1BF0FVYANYw0XqDbiAP3DBWQTyTZCNcD9iIcPxlBt2MHgTAvYAQMDAOJJSO4i
-        urExAAAAAElFTkSuQmCC
+        wwTS0tIfoYpIcwFNAcg1BF0FVYANYw0XqDbiAP3DBWQTyTZCNcD9iIcPxlBt2MHgTAvYAQMDANM0SOUW
+        j8nMAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="btnPageSetup.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
@@ -542,14 +542,14 @@
   </data>
   <data name="zoomToFullPage.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABpSURBVDhPY6AZMDY2ZlVSUlqjqKi4XktLiw0qTBwAaQZq
-        XAc04D8UbyTJEKDmFCTNYAwSg0oTD2CaoVzSwagBQ9oAYKJJgmmGYZAYVJowsLe3ZwFqWIukeT0oeUOl
-        iQPImYlkzcQDBgYAVqc3lvoSYo0AAAAASUVORK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAGlJREFUOE9joBkwNjZmVVJSWqOoqLheS0uLDSpMHABpBmpcBzTgPxRvJMkQoOYU
+        JM1gDBKDShMPYJqhXNLBqAFD2gBgokmCaYZhkBhUmjCwt7dnAWpYi6R5PSh5Q6WJA8iZiWTNxAMGBgBW
+        pzeW+hJijQAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="zoomToFullPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>135, 22</value>
   </data>
   <data name="zoomToFullPage.Text" xml:space="preserve">
     <value>Full Page</value>
@@ -563,72 +563,72 @@
 </value>
   </data>
   <data name="zoomToPageWidth.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>135, 22</value>
   </data>
   <data name="zoomToPageWidth.Text" xml:space="preserve">
     <value>Page Width</value>
   </data>
   <data name="zoomToTwoPages.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABzSURBVDhPYxiBQFFRsR1IMUJ4ZAAlJaX/QDwbyEQYAhT4
-        A5UgBc+Bagc76zcWBYTwLKh20gCSZoxwYIQGEF4A1NwGpDA1g0wFmQ7lkwaANs+EOo0U/AeqHWzAdCwK
-        CGGEAUAA8j/YFVA+WYCoQBxsgIEBAI9AWbD+5KRiAAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAHNJREFUOE9jGIFAUVGxHUgxQnhkACUlpf9APBvIRBgCFPgDlSAFz4FqBzvrNxYF
+        hPAsqHbSAJJmjHBghAYQXgDU3AakMDWDTAWZDuWTBoA2z4Q6jRT8B6odbMB0LAoIYYQBQADyP9gVUD5Z
+        gKhAHGyAgQEAj0BZsP7kpGIAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="zoomToTwoPages.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>135, 22</value>
   </data>
   <data name="zoomToTwoPages.Text" xml:space="preserve">
     <value>Two Pages</value>
   </data>
   <data name="zoomMenuItemSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 6</value>
+    <value>132, 6</value>
   </data>
   <data name="zoomTo500.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>135, 22</value>
   </data>
   <data name="zoomTo500.Text" xml:space="preserve">
     <value>500%</value>
   </data>
   <data name="zoomTo200.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>135, 22</value>
   </data>
   <data name="zoomTo200.Text" xml:space="preserve">
     <value>200%</value>
   </data>
   <data name="zoomTo150.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>135, 22</value>
   </data>
   <data name="zoomTo150.Text" xml:space="preserve">
     <value>150%</value>
   </data>
   <data name="zoomTo100.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>135, 22</value>
   </data>
   <data name="zoomTo100.Text" xml:space="preserve">
     <value>100%</value>
   </data>
   <data name="zoomTo75.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>135, 22</value>
   </data>
   <data name="zoomTo75.Text" xml:space="preserve">
     <value>75%</value>
   </data>
   <data name="zoomTo50.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>135, 22</value>
   </data>
   <data name="zoomTo50.Text" xml:space="preserve">
     <value>50%</value>
   </data>
   <data name="zoomTo25.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>135, 22</value>
   </data>
   <data name="zoomTo25.Text" xml:space="preserve">
     <value>25%</value>
   </data>
   <data name="zoomTo10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>135, 22</value>
   </data>
   <data name="zoomTo10.Text" xml:space="preserve">
     <value>10%</value>
@@ -636,11 +636,11 @@
   <data name="btnZoom.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADuSURBVDhPzZIxDoJAEEVp9AbaEGAhNNpSeASPaGE8AFzD
-        0tiYeACNnsBKLfB/8zdhJCjGxpdMlv07MzszS/B/JEni0jRdRFF0CMPwypV76nLpxjk3h+Mly7L61ajz
-        XK5teEMjuMrzfAqG0CbYlz4J/RRiYZkKLiUZfBL6SbLEcXzULRNJBlVScyaSLBjYjQ5FUQwkGdgOz+kn
-        yfKpAs6E52jhJMnSYwaVzpeSLJwuzL9CyUrYjnp/DpCGp5wppM27/8AbKt1jHSukDSthO5wJvu9wPsNW
-        vBn7Xa8kXWCQo0aSreTvUJINbC3pF4LgAfvAZrdTW9SfAAAAAElFTkSuQmCC
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADuSURBVDhPzZIxDoJAEEVp9AZakAALodGWwiN4RAvjAeAa
+        lsbGxANo9ARWaoH/m78JI0ExNr5ksuzfmdmZWYL/I0kSl6bpIoqiQxiGV67cU5dLN865ORwvWZbVr0ad
+        53JtwxsawVWe51MwhDbBvvRJ6KcQC8tUcCnJ4JPQT5IljuOjbplIMqiSmjORZMHAbnQoimIgycB2eE4/
+        SZZPFXAmPEcLJ0mWHjOodL6UZOF0Yf4VSlbCdtT7c4A0POVMIW3e/QfeUOke61ghbVgJ2+FM8H2H8xm2
+        4s3Y73ol6QKDHDWSbCV/h5JsYGtJvxAED+RuZq7biZ2lAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="btnZoom.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
@@ -659,8 +659,8 @@
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABqSURBVDhPYxgFuIGKioqMsrJyGjqbKADSIC8vf1tJSakV
-        mQ2Vxg9gGhQUFNqR2VBp/IAizSAA9GeujIzMR6AmeWQ2VJo4oKio2Az07z0glkNmQ6WJA1QzBIj3obNJ
-        AkBb+aFMFPawAgwMAFbMJ4XKcyahAAAAAElFTkSuQmCC
+        mQ2Vxg9gGhQUFNqR2VBp/IAizSAA9GeutLT0R6AmeWQ2VJo4oKio2Az07z0glkNmQ6WJA1QzBIj3obNJ
+        AkBb+aFMFPawAgwMAEssJ3/YWcAzAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="btnFirst.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
@@ -3938,95 +3938,11 @@
   <data name="&gt;&gt;printMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolbarSeparator1.Name" xml:space="preserve">
-    <value>toolbarSeparator1</value>
+  <data name="&gt;&gt;openMenuItemSeparator1.Name" xml:space="preserve">
+    <value>openMenuItemSeparator1</value>
   </data>
-  <data name="&gt;&gt;toolbarSeparator1.Type" xml:space="preserve">
+  <data name="&gt;&gt;openMenuItemSeparator1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnPrint.Name" xml:space="preserve">
-    <value>btnPrint</value>
-  </data>
-  <data name="&gt;&gt;btnPrint.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnPageSetup.Name" xml:space="preserve">
-    <value>btnPageSetup</value>
-  </data>
-  <data name="&gt;&gt;btnPageSetup.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolbarSeparator2.Name" xml:space="preserve">
-    <value>toolbarSeparator2</value>
-  </data>
-  <data name="&gt;&gt;toolbarSeparator2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolbarSeparator3.Name" xml:space="preserve">
-    <value>toolbarSeparator3</value>
-  </data>
-  <data name="&gt;&gt;toolbarSeparator3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnFirst.Name" xml:space="preserve">
-    <value>btnFirst</value>
-  </data>
-  <data name="&gt;&gt;btnFirst.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnPrev.Name" xml:space="preserve">
-    <value>btnPrev</value>
-  </data>
-  <data name="&gt;&gt;btnPrev.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txtPosition.Name" xml:space="preserve">
-    <value>txtPosition</value>
-  </data>
-  <data name="&gt;&gt;txtPosition.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblCount.Name" xml:space="preserve">
-    <value>lblCount</value>
-  </data>
-  <data name="&gt;&gt;lblCount.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnNext.Name" xml:space="preserve">
-    <value>btnNext</value>
-  </data>
-  <data name="&gt;&gt;btnNext.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnLast.Name" xml:space="preserve">
-    <value>btnLast</value>
-  </data>
-  <data name="&gt;&gt;btnLast.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;statusInfo.Name" xml:space="preserve">
-    <value>statusInfo</value>
-  </data>
-  <data name="&gt;&gt;statusInfo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;openFileDialog.Name" xml:space="preserve">
-    <value>openFileDialog</value>
-  </data>
-  <data name="&gt;&gt;openFileDialog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;printDialog.Name" xml:space="preserve">
-    <value>printDialog</value>
-  </data>
-  <data name="&gt;&gt;printDialog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PrintDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pageSetupDialog.Name" xml:space="preserve">
-    <value>pageSetupDialog</value>
-  </data>
-  <data name="&gt;&gt;pageSetupDialog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PageSetupDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;viewAsButton.Name" xml:space="preserve">
     <value>viewAsButton</value>
@@ -4051,6 +3967,30 @@
   </data>
   <data name="&gt;&gt;viewAsPrintedMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolbarSeparator1.Name" xml:space="preserve">
+    <value>toolbarSeparator1</value>
+  </data>
+  <data name="&gt;&gt;toolbarSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPrint.Name" xml:space="preserve">
+    <value>btnPrint</value>
+  </data>
+  <data name="&gt;&gt;btnPrint.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPageSetup.Name" xml:space="preserve">
+    <value>btnPageSetup</value>
+  </data>
+  <data name="&gt;&gt;btnPageSetup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolbarSeparator2.Name" xml:space="preserve">
+    <value>toolbarSeparator2</value>
+  </data>
+  <data name="&gt;&gt;toolbarSeparator2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;btnZoom.Name" xml:space="preserve">
     <value>btnZoom</value>
@@ -4130,11 +4070,71 @@
   <data name="&gt;&gt;zoomTo10.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;openMenuItemSeparator1.Name" xml:space="preserve">
-    <value>openMenuItemSeparator1</value>
+  <data name="&gt;&gt;toolbarSeparator3.Name" xml:space="preserve">
+    <value>toolbarSeparator3</value>
   </data>
-  <data name="&gt;&gt;openMenuItemSeparator1.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolbarSeparator3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnFirst.Name" xml:space="preserve">
+    <value>btnFirst</value>
+  </data>
+  <data name="&gt;&gt;btnFirst.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPrev.Name" xml:space="preserve">
+    <value>btnPrev</value>
+  </data>
+  <data name="&gt;&gt;btnPrev.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtPosition.Name" xml:space="preserve">
+    <value>txtPosition</value>
+  </data>
+  <data name="&gt;&gt;txtPosition.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblCount.Name" xml:space="preserve">
+    <value>lblCount</value>
+  </data>
+  <data name="&gt;&gt;lblCount.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnNext.Name" xml:space="preserve">
+    <value>btnNext</value>
+  </data>
+  <data name="&gt;&gt;btnNext.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnLast.Name" xml:space="preserve">
+    <value>btnLast</value>
+  </data>
+  <data name="&gt;&gt;btnLast.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusInfo.Name" xml:space="preserve">
+    <value>statusInfo</value>
+  </data>
+  <data name="&gt;&gt;statusInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog.Name" xml:space="preserve">
+    <value>openFileDialog</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;printDialog.Name" xml:space="preserve">
+    <value>printDialog</value>
+  </data>
+  <data name="&gt;&gt;printDialog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PrintDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pageSetupDialog.Name" xml:space="preserve">
+    <value>pageSetupDialog</value>
+  </data>
+  <data name="&gt;&gt;pageSetupDialog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PageSetupDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FormPreview</value>

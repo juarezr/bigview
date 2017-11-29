@@ -1,4 +1,4 @@
-﻿namespace viewparquet
+﻿namespace bigview
 {
     partial class FormPreview
     {
@@ -32,8 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolbarContainer = new System.Windows.Forms.ToolStripContainer();
             this.allTabs = new System.Windows.Forms.TabControl();
             this.tabTable = new System.Windows.Forms.TabPage();
@@ -48,26 +46,15 @@
             this.fileButton = new System.Windows.Forms.ToolStripSplitButton();
             this.openMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolbarSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnPrint = new System.Windows.Forms.ToolStripButton();
-            this.btnPageSetup = new System.Windows.Forms.ToolStripButton();
-            this.toolbarSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolbarSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnFirst = new System.Windows.Forms.ToolStripButton();
-            this.btnPrev = new System.Windows.Forms.ToolStripButton();
-            this.txtPosition = new System.Windows.Forms.ToolStripTextBox();
-            this.lblCount = new System.Windows.Forms.ToolStripLabel();
-            this.btnNext = new System.Windows.Forms.ToolStripButton();
-            this.btnLast = new System.Windows.Forms.ToolStripButton();
-            this.statusBar = new System.Windows.Forms.StatusStrip();
-            this.statusInfo = new System.Windows.Forms.ToolStripStatusLabel();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.printDialog = new System.Windows.Forms.PrintDialog();
-            this.pageSetupDialog = new System.Windows.Forms.PageSetupDialog();
+            this.openMenuItemSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.viewAsButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.viewAsTableMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewAsRowMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewAsPrintedMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolbarSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnPrint = new System.Windows.Forms.ToolStripButton();
+            this.btnPageSetup = new System.Windows.Forms.ToolStripButton();
+            this.toolbarSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnZoom = new System.Windows.Forms.ToolStripDropDownButton();
             this.zoomToFullPage = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomToPageWidth = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,7 +68,18 @@
             this.zoomTo50 = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomTo25 = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomTo10 = new System.Windows.Forms.ToolStripMenuItem();
-            this.openMenuItemSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolbarSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnFirst = new System.Windows.Forms.ToolStripButton();
+            this.btnPrev = new System.Windows.Forms.ToolStripButton();
+            this.txtPosition = new System.Windows.Forms.ToolStripTextBox();
+            this.lblCount = new System.Windows.Forms.ToolStripLabel();
+            this.btnNext = new System.Windows.Forms.ToolStripButton();
+            this.btnLast = new System.Windows.Forms.ToolStripButton();
+            this.statusBar = new System.Windows.Forms.StatusStrip();
+            this.statusInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.printDialog = new System.Windows.Forms.PrintDialog();
+            this.pageSetupDialog = new System.Windows.Forms.PageSetupDialog();
             this.toolbarContainer.ContentPanel.SuspendLayout();
             this.toolbarContainer.TopToolStripPanel.SuspendLayout();
             this.toolbarContainer.SuspendLayout();
@@ -153,20 +151,14 @@
             this.gridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridView.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.gridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridView.DefaultCellStyle = dataGridViewCellStyle2;
             resources.ApplyResources(this.gridView, "gridView");
             this.gridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.gridView.Name = "gridView";
             this.gridView.ReadOnly = true;
             this.gridView.ShowCellToolTips = false;
             this.gridView.ShowEditingIcon = false;
+            this.gridView.VirtualMode = true;
+            this.gridView.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.gridView_CellValueNeeded);
             // 
             // tabRow
             // 
@@ -180,8 +172,8 @@
             this.gridRow.AllowDrop = true;
             this.gridRow.AllowUserToAddRows = false;
             this.gridRow.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.gridRow.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.gridRow.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.gridRow.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.gridRow.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gridRow.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
@@ -189,14 +181,6 @@
             this.gridRow.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.gridRowFieldName,
             this.gridRowFieldValue});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridRow.DefaultCellStyle = dataGridViewCellStyle5;
             resources.ApplyResources(this.gridRow, "gridRow");
             this.gridRow.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.gridRow.Name = "gridRow";
@@ -207,8 +191,8 @@
             // gridRowFieldName
             // 
             this.gridRowFieldName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Silver;
-            this.gridRowFieldName.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
+            this.gridRowFieldName.DefaultCellStyle = dataGridViewCellStyle3;
             this.gridRowFieldName.Frozen = true;
             resources.ApplyResources(this.gridRowFieldName, "gridRowFieldName");
             this.gridRowFieldName.Name = "gridRowFieldName";
@@ -281,114 +265,10 @@
             this.printMenuItem.Tag = "print";
             this.printMenuItem.Click += new System.EventHandler(this.btnPrint_Click);
             // 
-            // toolbarSeparator1
+            // openMenuItemSeparator1
             // 
-            this.toolbarSeparator1.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            this.toolbarSeparator1.Name = "toolbarSeparator1";
-            resources.ApplyResources(this.toolbarSeparator1, "toolbarSeparator1");
-            this.toolbarSeparator1.Tag = "print";
-            // 
-            // btnPrint
-            // 
-            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.btnPrint, "btnPrint");
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Tag = "print";
-            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
-            // 
-            // btnPageSetup
-            // 
-            this.btnPageSetup.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.btnPageSetup, "btnPageSetup");
-            this.btnPageSetup.Name = "btnPageSetup";
-            this.btnPageSetup.Tag = "print";
-            this.btnPageSetup.Click += new System.EventHandler(this.btnPageSetup_Click);
-            // 
-            // toolbarSeparator2
-            // 
-            this.toolbarSeparator2.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            this.toolbarSeparator2.Name = "toolbarSeparator2";
-            resources.ApplyResources(this.toolbarSeparator2, "toolbarSeparator2");
-            this.toolbarSeparator2.Tag = "print";
-            // 
-            // toolbarSeparator3
-            // 
-            this.toolbarSeparator3.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            this.toolbarSeparator3.Name = "toolbarSeparator3";
-            resources.ApplyResources(this.toolbarSeparator3, "toolbarSeparator3");
-            this.toolbarSeparator3.Tag = "print";
-            // 
-            // btnFirst
-            // 
-            this.btnFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.btnFirst, "btnFirst");
-            this.btnFirst.Name = "btnFirst";
-            this.btnFirst.Tag = "print";
-            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
-            // 
-            // btnPrev
-            // 
-            this.btnPrev.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.btnPrev, "btnPrev");
-            this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Tag = "print";
-            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
-            // 
-            // txtPosition
-            // 
-            resources.ApplyResources(this.txtPosition, "txtPosition");
-            this.txtPosition.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtPosition.Name = "txtPosition";
-            this.txtPosition.Tag = "print";
-            this.txtPosition.Validating += new System.ComponentModel.CancelEventHandler(this.txtPosition_Validating);
-            this.txtPosition.Click += new System.EventHandler(this.txtPosition_Enter);
-            // 
-            // lblCount
-            // 
-            this.lblCount.Name = "lblCount";
-            resources.ApplyResources(this.lblCount, "lblCount");
-            this.lblCount.Tag = "print";
-            // 
-            // btnNext
-            // 
-            this.btnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.btnNext, "btnNext");
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Tag = "print";
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // btnLast
-            // 
-            this.btnLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.btnLast, "btnLast");
-            this.btnLast.Name = "btnLast";
-            this.btnLast.Tag = "print";
-            this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
-            // 
-            // statusBar
-            // 
-            this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusInfo});
-            resources.ApplyResources(this.statusBar, "statusBar");
-            this.statusBar.Name = "statusBar";
-            // 
-            // statusInfo
-            // 
-            this.statusInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.statusInfo.Name = "statusInfo";
-            resources.ApplyResources(this.statusInfo, "statusInfo");
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.DefaultExt = "parquet";
-            resources.ApplyResources(this.openFileDialog, "openFileDialog");
-            this.openFileDialog.ShowReadOnly = true;
-            // 
-            // printDialog
-            // 
-            this.printDialog.AllowSelection = true;
-            this.printDialog.AllowSomePages = true;
-            this.printDialog.UseEXDialog = true;
+            this.openMenuItemSeparator1.Name = "openMenuItemSeparator1";
+            resources.ApplyResources(this.openMenuItemSeparator1, "openMenuItemSeparator1");
             // 
             // viewAsButton
             // 
@@ -423,6 +303,36 @@
             resources.ApplyResources(this.viewAsPrintedMenuItem, "viewAsPrintedMenuItem");
             this.viewAsPrintedMenuItem.Name = "viewAsPrintedMenuItem";
             this.viewAsPrintedMenuItem.Click += new System.EventHandler(this.viewAsPrintedMenuItem_Click);
+            // 
+            // toolbarSeparator1
+            // 
+            this.toolbarSeparator1.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.toolbarSeparator1.Name = "toolbarSeparator1";
+            resources.ApplyResources(this.toolbarSeparator1, "toolbarSeparator1");
+            this.toolbarSeparator1.Tag = "print";
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.btnPrint, "btnPrint");
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Tag = "print";
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // btnPageSetup
+            // 
+            this.btnPageSetup.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.btnPageSetup, "btnPageSetup");
+            this.btnPageSetup.Name = "btnPageSetup";
+            this.btnPageSetup.Tag = "print";
+            this.btnPageSetup.Click += new System.EventHandler(this.btnPageSetup_Click);
+            // 
+            // toolbarSeparator2
+            // 
+            this.toolbarSeparator2.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.toolbarSeparator2.Name = "toolbarSeparator2";
+            resources.ApplyResources(this.toolbarSeparator2, "toolbarSeparator2");
+            this.toolbarSeparator2.Tag = "print";
             // 
             // btnZoom
             // 
@@ -516,10 +426,84 @@
             resources.ApplyResources(this.zoomTo10, "zoomTo10");
             this.zoomTo10.Click += new System.EventHandler(this.btnZoom_DropDownItemClicked);
             // 
-            // openMenuItemSeparator1
+            // toolbarSeparator3
             // 
-            this.openMenuItemSeparator1.Name = "openMenuItemSeparator1";
-            resources.ApplyResources(this.openMenuItemSeparator1, "openMenuItemSeparator1");
+            this.toolbarSeparator3.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.toolbarSeparator3.Name = "toolbarSeparator3";
+            resources.ApplyResources(this.toolbarSeparator3, "toolbarSeparator3");
+            this.toolbarSeparator3.Tag = "print";
+            // 
+            // btnFirst
+            // 
+            this.btnFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.btnFirst, "btnFirst");
+            this.btnFirst.Name = "btnFirst";
+            this.btnFirst.Tag = "print";
+            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
+            // 
+            // btnPrev
+            // 
+            this.btnPrev.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.btnPrev, "btnPrev");
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Tag = "print";
+            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
+            // 
+            // txtPosition
+            // 
+            resources.ApplyResources(this.txtPosition, "txtPosition");
+            this.txtPosition.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtPosition.Name = "txtPosition";
+            this.txtPosition.Tag = "print";
+            this.txtPosition.Validating += new System.ComponentModel.CancelEventHandler(this.txtPosition_Validating);
+            this.txtPosition.Click += new System.EventHandler(this.txtPosition_Enter);
+            // 
+            // lblCount
+            // 
+            this.lblCount.Name = "lblCount";
+            resources.ApplyResources(this.lblCount, "lblCount");
+            this.lblCount.Tag = "print";
+            // 
+            // btnNext
+            // 
+            this.btnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.btnNext, "btnNext");
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Tag = "print";
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // btnLast
+            // 
+            this.btnLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.btnLast, "btnLast");
+            this.btnLast.Name = "btnLast";
+            this.btnLast.Tag = "print";
+            this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
+            // 
+            // statusBar
+            // 
+            this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusInfo});
+            resources.ApplyResources(this.statusBar, "statusBar");
+            this.statusBar.Name = "statusBar";
+            // 
+            // statusInfo
+            // 
+            this.statusInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.statusInfo.Name = "statusInfo";
+            resources.ApplyResources(this.statusInfo, "statusInfo");
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.DefaultExt = "parquet";
+            resources.ApplyResources(this.openFileDialog, "openFileDialog");
+            this.openFileDialog.ShowReadOnly = true;
+            // 
+            // printDialog
+            // 
+            this.printDialog.AllowSelection = true;
+            this.printDialog.AllowSomePages = true;
+            this.printDialog.UseEXDialog = true;
             // 
             // FormPreview
             // 
