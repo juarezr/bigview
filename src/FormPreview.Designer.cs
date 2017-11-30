@@ -495,7 +495,6 @@
             // 
             // openFileDialog
             // 
-            this.openFileDialog.DefaultExt = "parquet";
             resources.ApplyResources(this.openFileDialog, "openFileDialog");
             this.openFileDialog.ShowReadOnly = true;
             // 

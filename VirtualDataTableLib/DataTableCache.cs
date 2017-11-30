@@ -2,6 +2,7 @@
 // Based on: https://docs.microsoft.com/en-us/dotnet/framework/winforms/controls/virtual-mode-with-just-in-time-data-loading-in-the-datagrid
 
 
+using System.Collections.Generic;
 using System.Data;
 
 namespace VirtualDataTableLib
@@ -22,9 +23,18 @@ namespace VirtualDataTableLib
 
         public static DataTableCache GetCacheFor(string sourceAddress, int rowsPerPage)
         {
-            var retriever = new ParquetRetriever();
+            bool isParquet = sourceAddress
+                .ToLowerInvariant()
+                .EndsWith("parquet", System.StringComparison.Ordinal);
+
+            IDataPageRetriever retriever;
+            if (isParquet)
+                retriever = new ParquetRetriever();
+            else
+                retriever = new AvroRetriever();
+
             retriever.OpenDataSource(sourceAddress);
-            
+
             var cache = new DataTableCache(retriever, rowsPerPage);
             return cache;
         }
@@ -33,7 +43,7 @@ namespace VirtualDataTableLib
 
         #region Properties
 
-        public DataColumnCollection GetColumns()
+        public DataColumnCollection GetFields()
         {
             LoadFirstTwoPages();
 
@@ -45,6 +55,13 @@ namespace VirtualDataTableLib
         public long? GetTotalRowCount()
         {
             return dataRetriever.GetTotalRowCount();
+        }
+
+        public IDictionary<string, string> GetProperties()
+        {
+            LoadFirstTwoPages();
+            
+            return dataRetriever.GetProperties();
         }
 
         #endregion Properties

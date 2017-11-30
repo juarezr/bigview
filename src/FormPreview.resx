@@ -505,10 +505,10 @@
   <data name="btnPrint.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACNSURBVDhPzZLLCYAwEERTRw751eHV1rRLD1bhD3TXjKBh
-        Y4InHwyE2dkhgah/EUIYSHsqY8zovW8Ry8NhHB+wr7WeiiUvBefN+CawZHIFF6X59wIadPTGuaaAc865
-        HlaEzIWHlWq4BKsRIVQUViNSoCSsRqy1qzhIuBVssJ7UFOAoQwHxK980IPoblDoA9s9tqxGmKLIAAAAA
-        SUVORK5CYII=
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACOSURBVDhPzZJLCoAwDER7jHbT3zncejW9pQtP4Q+0sSPY
+        Em1x5YOBkEyGFCr+hfd+CNpzaa1H51wL2zNkRplAfSnlVAx5CTgvo0vQ4nkKuCjNvweEQRfeONcEkM9a
+        26MVUUotNKxUQyFYjTCmorAa4QwlYTVijFnZQcYtYEMrpSYAJU8wsF/5pgHW3yDEAbkHbZBi9CH1AAAA
+        AElFTkSuQmCC
 </value>
   </data>
   <data name="btnPrint.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
@@ -636,11 +636,11 @@
   <data name="btnZoom.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADuSURBVDhPzZIxDoJAEEVp9AZakAALodGWwiN4RAvjAeAa
-        lsbGxANo9ARWaoH/m78JI0ExNr5ksuzfmdmZWYL/I0kSl6bpIoqiQxiGV67cU5dLN865ORwvWZbVr0ad
-        53JtwxsawVWe51MwhDbBvvRJ6KcQC8tUcCnJ4JPQT5IljuOjbplIMqiSmjORZMHAbnQoimIgycB2eE4/
-        SZZPFXAmPEcLJ0mWHjOodL6UZOF0Yf4VSlbCdtT7c4A0POVMIW3e/QfeUOke61ghbVgJ2+FM8H2H8xm2
-        4s3Y73ol6QKDHDWSbCV/h5JsYGtJvxAED+RuZq7biZ2lAAAAAElFTkSuQmCC
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADvSURBVDhPzZIxDoJAEEVp9AYaKICF0GhL4RE8ooXxAHAN
+        S2Nj4gE0egIrtcD/zSdhJCjGxpdMlv07Mzszi/d/xHHskiRZhGF48H3/ypV76nLpxjk3h+MlTdPq1ajz
+        XK5teEMjuMyybAqG0CbYF3US+inEwjIVXEgy1EnoJ8kSRdFRt0wkGVRJxZlIsgRBcKNDnucDSQa2w3P6
+        SbJ8qoAz4TlaOEmy9JhBqfOlJAunC6tfoWAlbEe9PwdIw1POFNLm3X9QGyrdYx0rpA0rYTucCb7vcD7D
+        VrwZ+12vJF1gkKNGkq3k71CSDWwt6Rc87wHCzGailBIIsQAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="btnZoom.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
@@ -818,7 +818,7 @@
     <value>118, 17</value>
   </metadata>
   <data name="openFileDialog.Filter" xml:space="preserve">
-    <value>Parquet Files|*.parquet|All files|*.*</value>
+    <value>Supported Files Types|*.parquet;*.avro|Parquet Files|*.parquet|Avro Files|*.avro|All Files Types|*.*</value>
   </data>
   <metadata name="printDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>251, 17</value>
