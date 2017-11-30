@@ -1,7 +1,6 @@
 ﻿using GridPrintPreviewLib;
 using System;
 using System.ComponentModel;
-using System.Data;
 using System.IO;
 using System.Windows.Forms;
 using VirtualDataTableLib;
@@ -115,20 +114,39 @@ namespace bigview
 
             try
             {
-                var cols = memoryCache.GetColumns();
-                foreach (DataColumn column in cols)
+                this.SuspendLayout();
+                var fields = memoryCache.GetFields();
+
+                var newcolumns = new DataGridViewColumn[fields.Count];
+
+                for (int i = 0; i < fields.Count; i++)
                 {
-                    gridView.Columns.Add(column.ColumnName, column.ColumnName);
+                    var field = fields[i];
+                    var col = new DataGridViewTextBoxColumn();
+                    col.DataPropertyName = field.ColumnName;
+                    col.HeaderText = string.IsNullOrWhiteSpace(field.Caption)
+                        ? field.ColumnName : field.Caption;
+
+                    newcolumns[i] = col;
                 }
 
                 long? totalRows = memoryCache.GetTotalRowCount();
 
                 int rowCount = totalRows != null && totalRows < int.MaxValue
                     ? (int)totalRows : rowsPerPage;
+                try
+                {
+                    gridView.RowCount = 0;
+                    gridView.Columns.Clear();
+                    gridView.Columns.AddRange(newcolumns);
+                    gridView.RowCount = rowCount;
 
-                gridView.RowCount = rowCount;
-
-                statusInfo.Text = $"{rowCount} rows";
+                    statusInfo.Text = $"{rowCount} rows";
+                }
+                finally
+                {
+                    this.ResumeLayout();
+                }
             }
             catch (Exception ex)
             {
