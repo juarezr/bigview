@@ -39,24 +39,12 @@ namespace VirtualDataTableLib
 
         private DataTable convertToDataTable(Parquet.Data.DataSet records)
         {
-            var table = new DataTable();
+            DataTable table = CreateDataTableFromParquet(records);
 
-            // TODO: Support nested types in Parquet
-
-            for (int f = 0; f < records.FieldCount; f++)
-            {
-                Field field = records.Schema[f];
-
-                Type schemaType = GetTypeFromField(field);
-
-                var col = new DataColumn(field.Name, schemaType);
-                table.Columns.Add(col);
-            }
-
-            
             for (int r = 0; r < records.RowCount; r++)
             {
                 Row row = records[r];
+
                 DataRow tableRow = table.NewRow();
 
                 for (int f = 0; f < records.FieldCount; f++)
@@ -70,6 +58,25 @@ namespace VirtualDataTableLib
                 table.Rows.Add(tableRow);
             }
 
+
+            return table;
+        }
+
+        private static DataTable CreateDataTableFromParquet(Parquet.Data.DataSet records)
+        {
+            var table = new DataTable();
+
+            // TODO: Support nested types in Parquet
+
+            for (int f = 0; f < records.FieldCount; f++)
+            {
+                Field field = records.Schema[f];
+
+                Type schemaType = GetTypeFromField(field);
+
+                var col = new DataColumn(field.Name, schemaType);
+                table.Columns.Add(col);
+            }
 
             return table;
         }
