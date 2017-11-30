@@ -8,17 +8,20 @@
   - Search and replace
   - Export to Microsoft Excel
   - Convert between file formats
-  - File editing  
+  - File editing
+  - Byte range seek
+  - Freeze columns
 * File Formats planned:
   - [Avro](https://avro.apache.org)
     * SchemaRegistryDotNet
   - Delimited text files, CSV.
   - Fixed length text files
   - Compressed text files: gz, zip, snappy, lz4, bz2, etc...
-  - [ORC](https://orc.apache.org)
+  - [ORC](https://orc.apache.org) missing .net library support
   - Support external schema on Parquet/Avro , etc...
   - Support nested types on Parquet/Avro , etc...
   - Support querying databases and exporting to file formats
+  - Support snappy in avro
 * Reading from cloud:
   - [Amazon S3](https://aws.amazon.com/s3/)
   - [Google Cloud Storage](https://cloud.google.com/storage/)
