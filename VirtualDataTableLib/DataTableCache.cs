@@ -2,23 +2,34 @@
 // Based on: https://docs.microsoft.com/en-us/dotnet/framework/winforms/controls/virtual-mode-with-just-in-time-data-loading-in-the-datagrid
 
 
+using System;
 using System.Collections.Generic;
 using System.Data;
 
 namespace VirtualDataTableLib
 {
-    public class DataTableCache
+    public class DataTableCache : IDisposable
     {
         #region Init
 
-        private static int RowsPerPage;
-        private DataPage[] cachePages;
+        private const int cachePageSize = 5;
+        private List<DataPage> dataPagesCache;
+
+        private int? totalRowCount = null;
+        private int? totalPageCount = null;
+        private int maxCachedRowIndex = 0;
+
+        private int RowsPerPage;
+
+        private int cachedPageLowBoundary = 0;
+        private int cachedPageHighBoundary { get { return cachedPageLowBoundary + cachePageSize - 1; } }
+
         private IDataPageRetriever dataRetriever;
 
         public DataTableCache(IDataPageRetriever dataSupplier, int rowsPerPage)
         {
             dataRetriever = dataSupplier;
-            DataTableCache.RowsPerPage = rowsPerPage;
+            RowsPerPage = rowsPerPage;
         }
 
         public static DataTableCache GetCacheFor(string sourceAddress, int rowsPerPage)
@@ -36,7 +47,19 @@ namespace VirtualDataTableLib
             retriever.OpenDataSource(sourceAddress);
 
             var cache = new DataTableCache(retriever, rowsPerPage);
+
+            cache.LoadFirstPages();
+
             return cache;
+        }
+
+        public void Dispose()
+        {
+            if (dataRetriever != null)
+            {
+                dataRetriever.Dispose();
+                dataRetriever = null;
+            }
         }
 
         #endregion Init
@@ -45,205 +68,272 @@ namespace VirtualDataTableLib
 
         public DataColumnCollection GetFields()
         {
-            LoadFirstTwoPages();
-
-            DataPage cachedPage = cachePages[0];
+            DataPage cachedPage = dataPagesCache[0];
             var cols = cachedPage.table.Columns;
             return cols;
         }
 
-        public long? GetTotalRowCount()
+        public int? GetTotalRowCount()
         {
-            return dataRetriever.GetTotalRowCount();
+            return totalRowCount;
+        }
+
+        public int GetMaxLoadedRowIndex()
+        {
+            return maxCachedRowIndex;
         }
 
         public IDictionary<string, string> GetProperties()
         {
-            LoadFirstTwoPages();
-            
             return dataRetriever.GetProperties();
         }
 
         #endregion Properties
 
-        #region Retrieve and Cache
+        #region Public Methods
 
-        public string RetrieveElement(int rowIndex, int columnIndex)
+        public object RetrieveElement(int rowIndex, int columnIndex)
         {
-            LoadFirstTwoPages();
+            object element;
 
-            string element;
-            bool isCached = IfPageCached_ThenSetElement(rowIndex, columnIndex, out element);
+            if (rowIndex == lastRowIndex)
+                element = lastRow[columnIndex];
+            else
+                element = RetrieveElementByRowIndex(rowIndex, columnIndex);
+
+            return element;
+        }
+
+        private object RetrieveElementByRowIndex(int rowIndex, int columnIndex)
+        {
+            int pageNumber = MapToPageNumber(RowsPerPage, rowIndex);
+
+            PreloadPageToCache(pageNumber);
+
+            object element = null;
+
+            bool isCached = IsPageNumberInPageCache(pageNumber);
             if (isCached)
             {
-                return element;
+                int cacheNumber = MapToCacheNumber(pageNumber);
+                element = RetrieveElementFromPageCache(cacheNumber, rowIndex, columnIndex);
             }
-            else
-            {
-                string loading = RetrieveData_CacheIt_ThenReturnElement(rowIndex, columnIndex);
-                return loading;
-            }
+
+            return element;
         }
 
-        private void LoadFirstTwoPages()
+        #endregion Public Methods
+
+        #region Retrieve and Cache
+
+        private void PreloadPageToCache(int pageNumber)
         {
-            if (cachePages != null)
+            int nextPageNumber = pageNumber + 1;
+            int maxPageBoundary = totalPageCount ?? int.MaxValue;
+
+            if (nextPageNumber > cachedPageHighBoundary && cachedPageHighBoundary < maxPageBoundary)
+            {
+                int firstPageToLoad = nextPageNumber - cachePageSize + 1;
+                if (firstPageToLoad <= cachedPageHighBoundary)
+                    firstPageToLoad = cachedPageHighBoundary + 1;
+
+                for (int page = firstPageToLoad; page <= nextPageNumber; page++)
+                {
+                    LoadPageNumber(page);
+                }
                 return;
-
-            int boundary1 = DataPage.MapToLowerBoundary(0);
-
-            var pageData1 = dataRetriever.SupplyPageOfData(boundary1, RowsPerPage);
-
-            var page1 = new DataPage(pageData1, 0);
-
-            int boundary2 = DataPage.MapToLowerBoundary(RowsPerPage);
-
-            var pageData2 = dataRetriever.SupplyPageOfData(boundary2, RowsPerPage);
-
-            var page2 = new DataPage(pageData2, RowsPerPage);
-
-            cachePages = new DataPage[] { page1, page2 };
-        }
-
-        // Sets the value of the element parameter if the value is in the cache.
-        private bool IfPageCached_ThenSetElement(int rowIndex, int columnIndex, out string element)
-        {
-            element = string.Empty;
-            bool isCachedIn0 = IsRowCachedInPage(0, rowIndex);
-            if (isCachedIn0)
-            {
-                element = RetrieveElementFromCache(0, rowIndex, columnIndex);
-                return true;
             }
-            else
+
+            int prevPageNumber = pageNumber > 0 ? pageNumber - 1 : 0;
+            if (prevPageNumber < cachedPageLowBoundary)
             {
-                bool isCachedIn1 = IsRowCachedInPage(1, rowIndex);
-                if (isCachedIn1)
+                int lastPageToLoad = prevPageNumber + cachePageSize - 1;
+                if (lastPageToLoad >= cachedPageLowBoundary)
+                    lastPageToLoad = cachedPageLowBoundary - 1;
+
+                for (int page = lastPageToLoad; page >= prevPageNumber; page--)
                 {
-                    element = RetrieveElementFromCache(1, rowIndex, columnIndex);
-                    return true;
+                    LoadPageNumber(page);
                 }
             }
-            return false;
         }
 
-        // Returns a value indicating whether the given row index is contained
-        // in the given DataPage. 
-        private bool IsRowCachedInPage(int pageNumber, int rowIndex)
+        private DataPage LoadPageNumber(int pageNumber)
         {
-            DataPage cachedPage = cachePages[pageNumber];
+            int boundary = MapToLowestIndex(RowsPerPage, pageNumber);
+            var pageData = dataRetriever.SupplyPageOfData(boundary, RowsPerPage);
+            var cachedPage = new DataPage(pageData, RowsPerPage, pageNumber);
 
-            bool isLower = rowIndex <= cachedPage.HighestIndex;
-            bool isHigher = rowIndex >= cachedPage.LowestIndex;
+            int maxIndex = cachedPage.HighestIndex + 1;
+            if (maxIndex > maxCachedRowIndex)
+                maxCachedRowIndex = maxIndex;
 
-            return isLower && isHigher;
+            if (!cachedPage.Full)
+                SetTotalRowCount(maxCachedRowIndex);
+
+            if (cachedPage.LoadedRows <= 0)
+                return cachedPage;
+
+            if (dataPagesCache.Count < cachePageSize)
+                // Add some pages to cache after initially loading the file
+                dataPagesCache.Add(cachedPage);
+            else
+            {
+                // Replace the cached page furthest from the requested cell
+                // with a new page containing the newly retrieved data.
+                if (pageNumber < cachedPageLowBoundary)
+                {
+                    dataPagesCache.RemoveAt(cachePageSize - 1);
+                    dataPagesCache.Insert(0, cachedPage);
+                    cachedPageLowBoundary -= 1;
+                }
+                else if (pageNumber > cachedPageHighBoundary)
+                {
+                    dataPagesCache.RemoveAt(0);
+                    dataPagesCache.Add(cachedPage);
+                    cachedPageLowBoundary += 1;
+                }
+            }
+
+            return cachedPage;
         }
 
-        private string RetrieveElementFromCache(int cacheNumber, int rowIndex, int columnIndex)
+        private bool IsPageNumberInPageCache(int pageNumber)
         {
-            DataPage cachedPage = cachePages[cacheNumber];
+            bool isCached = pageNumber >= cachedPageLowBoundary && pageNumber <= cachedPageHighBoundary;
+            return isCached;
+        }
+
+        private object RetrieveElementFromPageCache(int cacheNumber, int rowIndex, int columnIndex)
+        {
+            DataPage cachedPage = dataPagesCache[cacheNumber];
+            object colValue = RetrieveElementFromPage(cachedPage, rowIndex, columnIndex);
+            return colValue;
+        }
+
+        DataRow lastRow = null;
+        int lastRowIndex = -1;
+
+        private object RetrieveElementFromPage(DataPage cachedPage, int rowIndex, int columnIndex)
+        {
             int rowLocation = rowIndex % RowsPerPage;
-            var row = cachedPage.table.Rows[rowLocation];
-            var rowValue = row[columnIndex];
+            var rows = cachedPage.table.Rows;
+            lastRow = rows[rowLocation];
+            lastRowIndex = rowIndex;
 
-            string element = rowValue == null ? string.Empty : rowValue.ToString();
-            return element;
+            object colValue = lastRow[columnIndex];
+            return colValue;
         }
-
-        private string RetrieveData_CacheIt_ThenReturnElement(
-            int rowIndex, int columnIndex)
+        
+        private void LoadFirstPages()
         {
-            // Retrieve a page worth of data containing the requested value.
-            int boundaryRow = DataPage.MapToLowerBoundary(rowIndex);
+            dataPagesCache = new List<DataPage>();
 
-            DataTable table = dataRetriever.SupplyPageOfData(boundaryRow, RowsPerPage);
-
-            // Replace the cached page furthest from the requested cell
-            // with a new page containing the newly retrieved data.
-            int unusedPageIndex = GetIndexToUnusedPage(rowIndex);
-            cachePages[unusedPageIndex] = new DataPage(table, rowIndex);
-
-            string element = RetrieveElement(rowIndex, columnIndex);
-            return element;
-        }
-
-        // Returns the index of the cached page most distant from the given index
-        // and therefore least likely to be reused.
-        private int GetIndexToUnusedPage(int rowIndex)
-        {
-            var cachedPage0 = cachePages[0];
-            var cachedPage1 = cachePages[1];
-
-            if (rowIndex > cachedPage0.HighestIndex &&
-                rowIndex > cachedPage1.HighestIndex)
+            for (int i = 0; i < cachePageSize; i++)
             {
-                int offsetFromPage0 = rowIndex - cachedPage0.HighestIndex;
-                int offsetFromPage1 = rowIndex - cachedPage1.HighestIndex;
-                if (offsetFromPage0 < offsetFromPage1)
-                {
-                    return 1;
-                }
-                return 0;
-            }
-            else
-            {
-                int offsetFromPage0 = cachedPage0.LowestIndex - rowIndex;
-                int offsetFromPage1 = cachedPage1.LowestIndex - rowIndex;
-                if (offsetFromPage0 < offsetFromPage1)
-                {
-                    return 1;
-                }
-                return 0;
+                var cachedPage = LoadPageNumber(i);
+                if (!cachedPage.Full)
+                    break;
             }
 
+            int? rows = dataRetriever.GetTotalRowCount();
+            SetTotalRowCount(rows);
+        }
+
+        private void SetTotalRowCount(int? rows)
+        {
+            if (rows != null && totalRowCount == null)
+            {
+                totalRowCount = rows.Value;
+                totalPageCount = MapToPageNumber(RowsPerPage, rows.Value);
+            }
         }
 
         #endregion Retrieve and Cache
 
+        #region Calculate Pages
+
+        public int MapToCacheNumber(int pageNumber)
+        {
+            int cacheNumber = pageNumber - cachedPageLowBoundary;
+            return cacheNumber;
+        }
+
+        public static int MapToPageNumber(int rowCount, int rowIndex)
+        {
+            // Return the number of a page containing the given index.
+            return rowIndex / rowCount;
+        }
+
+        public static int MapToLowestIndex(int rowCount, int pageNumber)
+        {
+            // Return the lowest index of a page with the number.
+            return pageNumber * rowCount;
+        }
+
+        public static int MapToHighestIndex(int rowCount, int pageNumber)
+        {
+            // Return the lowest index of a page with the number.
+            int lowestIndexValue = MapToLowestIndex(rowCount, pageNumber);
+            return lowestIndexValue + rowCount - 1;
+        }
+
+        public static int MapToLowerBoundary(int rowCount, int rowIndex)
+        {
+            // Return the lowest index of a page containing the given index.
+            return (rowIndex / rowCount) * rowCount;
+        }
+
+        private static int MapToUpperBoundary(int rowCount, int rowIndex)
+        {
+            // Return the highest index of a page containing the given index.
+            int lowestIndexValue = MapToLowerBoundary(rowCount, rowIndex);
+            return lowestIndexValue + rowCount - 1;
+        }
+
+        #endregion Calculate Pages
+
         #region DataPage Structure
 
         // Represents one page of data.  
-        protected struct DataPage
+        protected class DataPage
         {
             public DataTable table;
             private int lowestIndexValue;
-            private int highestIndexValue;
+            private int loadedRows;
+            private int rowsPerPage;
+            private int pageNumber;
 
-            public DataPage(DataTable table, int rowIndex)
+            public DataPage(int rowsPerPage, int pageNumber)
+            {
+                this.loadedRows = 0;
+                this.rowsPerPage = rowsPerPage;
+                this.pageNumber = pageNumber;
+                this.lowestIndexValue = MapToLowestIndex(rowsPerPage, pageNumber);
+            }
+
+            public DataPage(DataTable table, int rowsPerPage, int pageNumber) : this(rowsPerPage, pageNumber)
             {
                 this.table = table;
-                lowestIndexValue = MapToLowerBoundary(rowIndex);
-                highestIndexValue = MapToUpperBoundary(rowIndex);
-                System.Diagnostics.Debug.Assert(lowestIndexValue >= 0);
-                System.Diagnostics.Debug.Assert(highestIndexValue >= 0);
+                loadedRows = table.Rows.Count;
             }
 
-            public int LowestIndex
-            {
-                get
-                {
-                    return lowestIndexValue;
-                }
-            }
+            public int LowestIndex { get { return lowestIndexValue; } }
 
-            public int HighestIndex
-            {
-                get
-                {
-                    return highestIndexValue;
-                }
-            }
+            public int HighestIndex { get { return lowestIndexValue + loadedRows - 1; } }
 
-            public static int MapToLowerBoundary(int rowIndex)
-            {
-                // Return the lowest index of a page containing the given index.
-                return (rowIndex / RowsPerPage) * RowsPerPage;
-            }
+            public int LoadedRows { get { return loadedRows; } }
 
-            private static int MapToUpperBoundary(int rowIndex)
+            public int PageNumber { get { return pageNumber; } }
+
+            public bool Full { get { return loadedRows >= rowsPerPage; } }
+
+            public override string ToString()
             {
-                // Return the highest index of a page containing the given index.
-                return MapToLowerBoundary(rowIndex) + RowsPerPage - 1;
+                string last = Full ? string.Empty : " (last)";
+
+                return string.Format("#{0} Σ {1} Δ {2}-{3}{4}", 
+                    pageNumber, loadedRows, lowestIndexValue, HighestIndex, last);
             }
         }
 
