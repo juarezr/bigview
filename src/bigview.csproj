@@ -7,8 +7,8 @@
     <ProjectGuid>{29625A61-39D1-416A-9FB8-4014CD01F0A3}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>viewparquet</RootNamespace>
-    <AssemblyName>viewparquet</AssemblyName>
+    <RootNamespace>bigview</RootNamespace>
+    <AssemblyName>bigview</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -76,7 +76,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GridLib\GridPrintPreviewLib.csproj">

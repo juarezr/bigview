@@ -47,6 +47,7 @@
             this.openMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openMenuItemSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.closeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewAsButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.viewAsTableMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewAsRowMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -159,6 +160,7 @@
             this.gridView.ShowEditingIcon = false;
             this.gridView.VirtualMode = true;
             this.gridView.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.gridView_CellValueNeeded);
+            this.gridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridView_RowEnter);
             // 
             // tabRow
             // 
@@ -245,7 +247,8 @@
             this.fileButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openMenuItem,
             this.printMenuItem,
-            this.openMenuItemSeparator1});
+            this.openMenuItemSeparator1,
+            this.closeMenuItem});
             resources.ApplyResources(this.fileButton, "fileButton");
             this.fileButton.Margin = new System.Windows.Forms.Padding(8, 1, 0, 2);
             this.fileButton.Name = "fileButton";
@@ -269,6 +272,13 @@
             // 
             this.openMenuItemSeparator1.Name = "openMenuItemSeparator1";
             resources.ApplyResources(this.openMenuItemSeparator1, "openMenuItemSeparator1");
+            // 
+            // closeMenuItem
+            // 
+            resources.ApplyResources(this.closeMenuItem, "closeMenuItem");
+            this.closeMenuItem.Name = "closeMenuItem";
+            this.closeMenuItem.Tag = "view";
+            this.closeMenuItem.Click += new System.EventHandler(this.closeMenuItem_Click);
             // 
             // viewAsButton
             // 
@@ -580,6 +590,7 @@
         private System.Windows.Forms.ToolStripMenuItem zoomTo25;
         private System.Windows.Forms.ToolStripMenuItem zoomTo10;
         private System.Windows.Forms.ToolStripSeparator openMenuItemSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem closeMenuItem;
     }
 }
 
