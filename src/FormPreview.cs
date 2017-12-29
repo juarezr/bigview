@@ -27,7 +27,14 @@ namespace bigview
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 LoadFileOnGrid(openFileDialog.FileName);
+                closeMenuItem.Enabled = false;
             }
+        }
+
+        private void closeMenuItem_Click(object sender, EventArgs e)
+        {
+            CloseLoadedFile();
+            closeMenuItem.Enabled = false;
         }
 
         private void gridView_DragOver(object sender, DragEventArgs e)
@@ -99,13 +106,30 @@ namespace bigview
 
         private DataTableCache memoryCache;
 
+        private void CloseLoadedFile()
+        {
+            if (memoryCache != null)
+            {
+                memoryCache.Dispose();
+                memoryCache = null;
+
+                gridView.Columns.Clear();
+                lastRowCount = null;
+                lastRowsLoaded = 0;
+            }
+            this.Text = "No file opened";
+        }
+
         private void LoadFileOnGrid(string file)
         {
+            CloseLoadedFile();
+
             int rowsPerPage = gridView.ClientRectangle.Height / gridView.RowTemplate.Height;
 
             try
             {
-                memoryCache = DataTableCache.GetCacheFor(file, rowsPerPage + 1);
+                memoryCache = DataTableCache.GetCacheFor(file, rowsPerPage);
+                this.Text = Path.GetFileName(file);
             }
             catch (Exception ex)
             {
@@ -114,7 +138,6 @@ namespace bigview
 
             try
             {
-                this.SuspendLayout();
                 var fields = memoryCache.GetFields();
 
                 var newcolumns = new DataGridViewColumn[fields.Count];
@@ -130,18 +153,12 @@ namespace bigview
                     newcolumns[i] = col;
                 }
 
-                long? totalRows = memoryCache.GetTotalRowCount();
-
-                int rowCount = totalRows != null && totalRows < int.MaxValue
-                    ? (int)totalRows : rowsPerPage;
+                this.SuspendLayout();
                 try
                 {
-                    gridView.RowCount = 0;
-                    gridView.Columns.Clear();
                     gridView.Columns.AddRange(newcolumns);
-                    gridView.RowCount = rowCount;
 
-                    statusInfo.Text = $"{rowCount} rows";
+                    UpdateGridRowCount(0);
                 }
                 finally
                 {
@@ -150,13 +167,12 @@ namespace bigview
             }
             catch (Exception ex)
             {
+                CloseLoadedFile();
                 MessageBox.Show($"Error reading records from file '{file}': {ex.Message}");
             }
 
             try
             {
-                //gridView.AutoGenerateColumns = true;
-
                 // Adjust the column widths based on the displayed values.
                 gridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
             }
@@ -165,7 +181,6 @@ namespace bigview
                 MessageBox.Show($"Error displaying records from file '{file}': {ex.Message}");
             }
 
-            this.Text = Path.GetFileName(file);
 
             docToPrint = null;
 
@@ -173,11 +188,55 @@ namespace bigview
             viewAsButton.Visible = true;
         }
 
+        private int? lastRowCount = null;
+        private int lastRowsLoaded = 0;
+
+        private void UpdateGridRowCount(int rowIndex)
+        {
+            lastRowCount = memoryCache.GetTotalRowCount();
+            lastRowsLoaded = memoryCache.GetMaxLoadedRowIndex();
+
+            UpdateStatusText(rowIndex);
+
+            int gridRows = lastRowCount ?? lastRowsLoaded;
+
+            if (gridView.RowCount < gridRows)
+            {
+                gridView.RowCount = gridRows; // triggers gridView_CellValueNeeded
+            }
+        }
+
         private void gridView_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
+            object cellValue = null;
             if (memoryCache != null)
-                e.Value = memoryCache.RetrieveElement(e.RowIndex, e.ColumnIndex);
+                cellValue = memoryCache.RetrieveElement(e.RowIndex, e.ColumnIndex);
+
+            e.Value = cellValue == null ? string.Empty : cellValue.ToString();
+
+            if (memoryCache != null)
+                UpdateGridRowCount(e.RowIndex);
         }
+
+        private void gridView_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+
+            UpdateStatusText(e.RowIndex);
+        }
+
+        private void UpdateStatusText(int rowIndex)
+        {
+            int rowNum = rowIndex + 1;
+
+            statusInfo.Text = lastRowCount != null && lastRowsLoaded != lastRowCount.Value
+                ? $"row {rowNum} ({lastRowsLoaded} found {lastRowCount} total)"
+                : lastRowCount != null
+                ? $"row {rowNum} ({lastRowCount} total)"
+                : lastRowsLoaded > 0
+                ? $"row {rowNum} ({lastRowsLoaded} found)"
+                : string.Empty;
+        }
+
         #endregion load
 
 
@@ -427,5 +486,6 @@ namespace bigview
                 checkItemEnabled(child, tag);
             }
         }
+
     }
 }
