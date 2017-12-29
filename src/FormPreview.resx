@@ -388,7 +388,7 @@
     <value>toolStripContainer1</value>
   </data>
   <metadata name="toolbarMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>646, 17</value>
+    <value>653, 17</value>
   </metadata>
   <data name="toolbarMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
@@ -413,6 +413,18 @@
   </data>
   <data name="openMenuItemSeparator1.Size" type="System.Drawing.Size, System.Drawing">
     <value>143, 6</value>
+  </data>
+  <data name="closeMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="closeMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+L</value>
+  </data>
+  <data name="closeMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 22</value>
+  </data>
+  <data name="closeMenuItem.Text" xml:space="preserve">
+    <value>C&amp;lose</value>
   </data>
   <data name="fileButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -505,10 +517,10 @@
   <data name="btnPrint.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACOSURBVDhPzZJLCoAwDER7jHbT3zncejW9pQtP4Q+0sSPY
-        Em1x5YOBkEyGFCr+hfd+CNpzaa1H51wL2zNkRplAfSnlVAx5CTgvo0vQ4nkKuCjNvweEQRfeONcEkM9a
-        26MVUUotNKxUQyFYjTCmorAa4QwlYTVijFnZQcYtYEMrpSYAJU8wsF/5pgHW3yDEAbkHbZBi9CH1AAAA
-        AElFTkSuQmCC
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACPSURBVDhPzZJLCoAwDER7iS666e8cbr2a3tKFp/AH2tgR
+        bIm2uPLBQEgmQwoV/8J7PwTtubTWo3Ouhe0ZMqNMoL6UciqGvAScl9ElaPE8BVyU5t8DwqALb5xrAshn
+        re3RiiilFhpWqqEQrEYYU1FYjXCGkrAaMcas7CDjFrChlVITgJInGNivfNMA628Q4gBlZG1soXe+QQAA
+        AABJRU5ErkJggg==
 </value>
   </data>
   <data name="btnPrint.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
@@ -636,11 +648,11 @@
   <data name="btnZoom.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADvSURBVDhPzZIxDoJAEEVp9AYaKICF0GhL4RE8ooXxAHAN
-        S2Nj4gE0egIrtcD/zSdhJCjGxpdMlv07Mzszi/d/xHHskiRZhGF48H3/ypV76nLpxjk3h+MlTdPq1ajz
-        XK5teEMjuMyybAqG0CbYF3US+inEwjIVXEgy1EnoJ8kSRdFRt0wkGVRJxZlIsgRBcKNDnucDSQa2w3P6
-        SbJ8qoAz4TlaOEmy9JhBqfOlJAunC6tfoWAlbEe9PwdIw1POFNLm3X9QGyrdYx0rpA0rYTucCb7vcD7D
-        VrwZ+12vJF1gkKNGkq3k71CSDWwt6Rc87wHCzGailBIIsQAAAABJRU5ErkJggg==
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADvSURBVDhPzZI9DoJAEIVp9AZrQsFvaLCl8Age0cJ4ALiG
+        pbEx8QAaPYGVWuB75pEwEhRj45dMln07Mzszi/d/RFEUJ0myCILg4Jy7cuWeulz6ieN4DsdLmqb1q1Hn
+        uVy78IZWcJVl2RSMoeXYl00S+inEwjIVXEoyNEnoJ8kShuFRt+SSDKqk5kwkWXzfv9GhKIqRJAPb4Tn9
+        JFk+VcCZ8BwtnCRZBsyg0vlSkoXThTWvULIStqPenwOk4SlnCuny7j9oDJXusU4U0oWVsB3OBN93OJ9h
+        K96M/W5Qkj4wSNdKspX8HUqyga0l/YLnPQCj3GaZdv0DrwAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="btnZoom.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
@@ -3943,6 +3955,12 @@
   </data>
   <data name="&gt;&gt;openMenuItemSeparator1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;closeMenuItem.Name" xml:space="preserve">
+    <value>closeMenuItem</value>
+  </data>
+  <data name="&gt;&gt;closeMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;viewAsButton.Name" xml:space="preserve">
     <value>viewAsButton</value>
