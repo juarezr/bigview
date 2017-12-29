@@ -17,22 +17,18 @@ namespace VirtualDataTableLib
 
         protected override DataTable ReadRecordsFrom(Stream fileStream, int lowerPageBoundary, int rowsPerPage)
         {
-            //var container = AvroContainer.CreateGenericReader(fileStream);
-            //var block = container.Current;
-
-            //var serializer = AvroSerializer.CreateGeneric();
-
             return ReadRecordsFromApache(fileStream, lowerPageBoundary, rowsPerPage);
         }
 
-        protected  DataTable ReadRecordsFromApache(Stream fileStream, int lowerPageBoundary, int rowsPerPage)
+        protected DataTable ReadRecordsFromApache(Stream fileStream, int lowerPageBoundary, int rowsPerPage)
         {
+            // TODO: Handle snappy compression
 
             if (dataFileReader == null)
             {
                 dataFileReader = DataFileReader<GenericRecord>.OpenReader(fileStream);
                 var metaKeys = dataFileReader.GetMetaKeys();
-                foreach(string key in metaKeys)
+                foreach (string key in metaKeys)
                 {
                     string prop = dataFileReader.GetMetaString(key);
                     SetProperty(key, prop);
@@ -40,56 +36,46 @@ namespace VirtualDataTableLib
             }
 
 
-            //var schema = (RecordSchema) dataFileReader.GetSchema();
-
-            //var datumReader = new GenericReader<GenericRecord>(dataFileReader);
-            //var datumReader = new GenericDatumReader<GenericRecord>(schema, schema);
-
-            // var decoder = new BinaryDecoder(fileStream);
-
-
             DataTable table = null;
 
-            //dataFileReader.
             // TODO : Avro -> Sync directly to the record number
 
             dataFileReader.Sync(0);
 
             int row = 0;
-            //while (row < rowsPerPage && dataFileReader.HasNext())
+            int lastrow = lowerPageBoundary + rowsPerPage - 1;
             foreach (var record in dataFileReader.NextEntries)
             {
-                row += 1;
-
-                if (lowerPageBoundary > row)
-                    continue;
-
-                //GenericRecord record = dataFileReader.Next();
-                //GenericRecord record = datumReader.Read(null, decoder);
-
-                if (table == null)
+                if (row >= lowerPageBoundary)
                 {
-                    table = CreateDataTableFromSchema(record.Schema);
+                    if (table == null)
+                        table = CreateDataTableFromSchema(record.Schema);
+
+                    ConvertToDataRow(table, record);
                 }
-
-                DataRow tableRow = table.NewRow();
-
-                foreach (Field field in record.Schema.Fields)
-                {
-                    object value = GetValueFromField(record, field.Name);
-
-
-                    if (value != null)
-                        tableRow[field.Pos] = value;
-                }
-
-                table.Rows.Add(tableRow);
-
-                if (row > rowsPerPage)
+                if (row >= lastrow)
                     break;
+                row += 1;
             }
 
             return table;
+        }
+
+        private DataRow ConvertToDataRow(DataTable table, GenericRecord record)
+        {
+            DataRow tableRow = table.NewRow();
+
+            foreach (Field field in record.Schema.Fields)
+            {
+                object value = GetValueFromField(record, field.Name);
+
+                if (value != null)
+                    tableRow[field.Pos] = value;
+            }
+
+            table.Rows.Add(tableRow);
+
+            return tableRow;
         }
 
         private object GetValueFromField(GenericRecord record, string fieldname)
