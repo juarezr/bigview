@@ -8,9 +8,9 @@ namespace VirtualDataTableLib
 {
     public class ParquetRetriever : FileDataRetriever
     {
-        private long? _totalRowCount;
+        private int? _totalRowCount;
 
-        public override long? GetTotalRowCount()
+        public override int? GetTotalRowCount()
         {
             return _totalRowCount;
         }
@@ -30,7 +30,7 @@ namespace VirtualDataTableLib
 
             var records = ParquetReader.Read(fileStream, options, readOptions);
 
-            _totalRowCount = records.TotalRowCount;
+            _totalRowCount = (int)records.TotalRowCount;
 
             var dataTable = convertToDataTable(records);
 

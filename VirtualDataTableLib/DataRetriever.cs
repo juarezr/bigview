@@ -7,22 +7,25 @@ using System.IO;
 
 namespace VirtualDataTableLib
 {
-    public interface IDataPageRetriever
+    public interface IDataPageRetriever : IDisposable
     {
         DataTable SupplyPageOfData(int lowerPageBoundary, int rowsPerPage);
 
-        long? GetTotalRowCount();
+        int? GetTotalRowCount();
 
         void OpenDataSource(string sourceAddress);
 
         IDictionary<string, string> GetProperties();
+
     }
 
     public abstract class DataRetriever : IDataPageRetriever
     {
         private IDictionary<string, string> _properties = new Dictionary<string, string>();
 
-        public abstract long? GetTotalRowCount();
+        public abstract void Dispose();
+
+        public abstract int? GetTotalRowCount();
 
         public abstract DataTable SupplyPageOfData(int lowerPageBoundary, int rowsPerPage);
 
@@ -39,14 +42,17 @@ namespace VirtualDataTableLib
         }
     }
 
-    public abstract class FileDataRetriever : DataRetriever, IDisposable
+    public abstract class FileDataRetriever : DataRetriever
     {
         private Stream fileStream;
 
-        public virtual void Dispose()
+        public override void Dispose()
         {
             if (fileStream != null)
+            {
                 ((IDisposable)fileStream).Dispose();
+                fileStream = null;
+            }
         }
 
         public override void OpenDataSource(string sourceAddress)
@@ -61,5 +67,8 @@ namespace VirtualDataTableLib
         }
 
         protected abstract DataTable ReadRecordsFrom(Stream fileStream, int lowerPageBoundary, int rowsPerPage);
+
     }
+
+
 }

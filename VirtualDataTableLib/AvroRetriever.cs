@@ -10,13 +10,24 @@ namespace VirtualDataTableLib
     {
         private IFileReader<GenericRecord> dataFileReader = null;
 
-        public override long? GetTotalRowCount()
+        public override int? GetTotalRowCount()
         {
             return null;
         }
 
         protected override DataTable ReadRecordsFrom(Stream fileStream, int lowerPageBoundary, int rowsPerPage)
         {
+            //var container = AvroContainer.CreateGenericReader(fileStream);
+            //var block = container.Current;
+
+            //var serializer = AvroSerializer.CreateGeneric();
+
+            return ReadRecordsFromApache(fileStream, lowerPageBoundary, rowsPerPage);
+        }
+
+        protected  DataTable ReadRecordsFromApache(Stream fileStream, int lowerPageBoundary, int rowsPerPage)
+        {
+
             if (dataFileReader == null)
             {
                 dataFileReader = DataFileReader<GenericRecord>.OpenReader(fileStream);
@@ -28,22 +39,23 @@ namespace VirtualDataTableLib
                 }
             }
 
-            int row = 0;
 
             //var schema = (RecordSchema) dataFileReader.GetSchema();
 
             //var datumReader = new GenericReader<GenericRecord>(dataFileReader);
             //var datumReader = new GenericDatumReader<GenericRecord>(schema, schema);
 
-            //var decoder = new BinaryDecoder(fileStream);
+            // var decoder = new BinaryDecoder(fileStream);
+
 
             DataTable table = null;
 
-
+            //dataFileReader.
             // TODO : Avro -> Sync directly to the record number
 
             dataFileReader.Sync(0);
 
+            int row = 0;
             //while (row < rowsPerPage && dataFileReader.HasNext())
             foreach (var record in dataFileReader.NextEntries)
             {
@@ -78,7 +90,6 @@ namespace VirtualDataTableLib
             }
 
             return table;
-
         }
 
         private object GetValueFromField(GenericRecord record, string fieldname)
