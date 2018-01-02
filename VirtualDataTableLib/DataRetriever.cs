@@ -13,7 +13,7 @@ namespace VirtualDataTableLib
 
         int? GetTotalRowCount();
 
-        void OpenDataSource(string sourceAddress);
+        void OpenDataSource(string sourceAddress, int rowsPerPage);
 
         IDictionary<string, string> GetProperties();
 
@@ -29,7 +29,7 @@ namespace VirtualDataTableLib
 
         public abstract DataTable SupplyPageOfData(int lowerPageBoundary, int rowsPerPage);
 
-        public abstract void OpenDataSource(string sourceAddress);
+        public abstract void OpenDataSource(string sourceAddress, int rowsPerPage);
 
         public IDictionary<string, string> GetProperties()
         {
@@ -44,7 +44,7 @@ namespace VirtualDataTableLib
 
     public abstract class FileDataRetriever : DataRetriever
     {
-        private Stream fileStream;
+        protected Stream fileStream;
 
         public override void Dispose()
         {
@@ -55,18 +55,18 @@ namespace VirtualDataTableLib
             }
         }
 
-        public override void OpenDataSource(string sourceAddress)
+        public override void OpenDataSource(string sourceAddress, int rowsPerPage)
         {
             fileStream = new FileStream(sourceAddress, FileMode.Open, FileAccess.Read, FileShare.Read);
         }
 
         public override DataTable SupplyPageOfData(int lowerPageBoundary, int rowsPerPage)
         {
-            var table = ReadRecordsFrom(fileStream, lowerPageBoundary, rowsPerPage);
+            var table = ReadRecordsFrom(lowerPageBoundary, rowsPerPage);
             return table;
         }
 
-        protected abstract DataTable ReadRecordsFrom(Stream fileStream, int lowerPageBoundary, int rowsPerPage);
+        protected abstract DataTable ReadRecordsFrom(int lowerPageBoundary, int rowsPerPage);
 
     }
 

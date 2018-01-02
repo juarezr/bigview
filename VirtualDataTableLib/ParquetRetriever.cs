@@ -2,33 +2,60 @@
 using Parquet.Data;
 using System;
 using System.Data;
-using System.IO;
 
 namespace VirtualDataTableLib
 {
     public class ParquetRetriever : FileDataRetriever
     {
         private int? _totalRowCount;
+        private ParquetReader dataFileReader = null;
 
         public override int? GetTotalRowCount()
         {
             return _totalRowCount;
         }
 
-        protected override DataTable ReadRecordsFrom(Stream fileStream, int lowerPageBoundary, int rowsPerPage)
+        #region Open/Dispose
+
+        public override void OpenDataSource(string sourceAddress, int rowsPerPage)
         {
-            var options = new ParquetOptions
+            base.OpenDataSource(sourceAddress, rowsPerPage);
+
+            var formatOptions = new ParquetOptions
             {
                 TreatByteArrayAsString = true
             };
 
             var readOptions = new ReaderOptions
             {
-                Offset = lowerPageBoundary,
+                Offset = 0,
                 Count = rowsPerPage
             };
 
-            var records = ParquetReader.Read(fileStream, options, readOptions);
+            dataFileReader = new ParquetReader(fileStream, formatOptions, readOptions);
+
+        }
+
+        public override void Dispose()
+        {
+            if (dataFileReader != null)
+            {
+                dataFileReader.Dispose();
+                dataFileReader = null;
+            }
+
+            base.Dispose();
+        }
+
+        #endregion Open/Dispose
+
+        #region Reading
+
+        protected override DataTable ReadRecordsFrom(int lowerPageBoundary, int rowsPerPage)
+        {
+            //var records = ParquetReader.Read(fileStream, options, readOptions);
+
+            var records = dataFileReader.Read();
 
             _totalRowCount = (int)records.TotalRowCount;
 
@@ -104,5 +131,8 @@ namespace VirtualDataTableLib
 
             return stringType;
         }
+
+        #endregion Reading
+
     }
 }

@@ -2,45 +2,71 @@
 using Avro.File;
 using Avro.Generic;
 using System.Data;
-using System.IO;
 
 namespace VirtualDataTableLib
 {
     public class AvroRetriever : FileDataRetriever
     {
+        #region Properties
+
         private IFileReader<GenericRecord> dataFileReader = null;
 
         public override int? GetTotalRowCount()
         {
-            return null;
+            return null; // tracked on cache
         }
 
-        protected override DataTable ReadRecordsFrom(Stream fileStream, int lowerPageBoundary, int rowsPerPage)
-        {
-            return ReadRecordsFromApache(fileStream, lowerPageBoundary, rowsPerPage);
-        }
+        #endregion Properties
 
-        protected DataTable ReadRecordsFromApache(Stream fileStream, int lowerPageBoundary, int rowsPerPage)
-        {
-            // TODO: Handle snappy compression
+        #region Open/Dispose
 
-            if (dataFileReader == null)
+        public override void OpenDataSource(string sourceAddress, int rowsPerPage)
+        {
+            base.OpenDataSource(sourceAddress, rowsPerPage);
+
+            dataFileReader = DataFileReader<GenericRecord>.OpenReader(fileStream);
+            var metaKeys = dataFileReader.GetMetaKeys();
+            foreach (string key in metaKeys)
             {
-                dataFileReader = DataFileReader<GenericRecord>.OpenReader(fileStream);
-                var metaKeys = dataFileReader.GetMetaKeys();
-                foreach (string key in metaKeys)
-                {
-                    string prop = dataFileReader.GetMetaString(key);
-                    SetProperty(key, prop);
-                }
+                string prop = dataFileReader.GetMetaString(key);
+                SetProperty(key, prop);
+            }
+        }
+
+        public override void Dispose()
+        {
+            if (dataFileReader != null)
+            {
+                dataFileReader.Dispose();
+                dataFileReader = null;
             }
 
+            base.Dispose();
+        }
+
+        #endregion Open/Dispose
+
+        #region Reading
+
+        protected override DataTable ReadRecordsFrom(int lowerPageBoundary, int rowsPerPage)
+        {
+            return ReadRecordsFromApache(lowerPageBoundary, rowsPerPage);
+        }
+
+        private int lastLowerPageBoundary = int.MinValue;
+
+        protected DataTable ReadRecordsFromApache(int lowerPageBoundary, int rowsPerPage)
+        {
+            // TODO: Handle snappy compression
 
             DataTable table = null;
 
             // TODO : Avro -> Sync directly to the record number
 
-            dataFileReader.Sync(0);
+            if (lastLowerPageBoundary != lowerPageBoundary + rowsPerPage - 1)
+                dataFileReader.Sync(0);
+
+            lastLowerPageBoundary = lowerPageBoundary;
 
             int row = 0;
             int lastrow = lowerPageBoundary + rowsPerPage - 1;
@@ -103,12 +129,6 @@ namespace VirtualDataTableLib
             return table;
         }
 
-        public override void Dispose()
-        {
-            if (dataFileReader != null)
-                dataFileReader.Dispose();
-
-            base.Dispose();
-        }
+        #endregion Reading
     }
 }

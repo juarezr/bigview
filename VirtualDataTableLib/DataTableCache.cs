@@ -44,7 +44,7 @@ namespace VirtualDataTableLib
             else
                 retriever = new AvroRetriever();
 
-            retriever.OpenDataSource(sourceAddress);
+            retriever.OpenDataSource(sourceAddress, rowsPerPage);
 
             var cache = new DataTableCache(retriever, rowsPerPage);
 
