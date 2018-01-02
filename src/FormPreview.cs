@@ -133,7 +133,7 @@ namespace bigview
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error opening file '{file}': {ex.Message}");
+                MessageBox.Show($"Error opening file '{file}': {ex.Message}\r\n At: {ex.StackTrace}");
             }
 
             try
@@ -168,7 +168,7 @@ namespace bigview
             catch (Exception ex)
             {
                 CloseLoadedFile();
-                MessageBox.Show($"Error reading records from file '{file}': {ex.Message}");
+                MessageBox.Show($"Error reading records from file '{file}': {ex.Message}\r\n At: {ex.StackTrace}");
             }
 
             try
@@ -178,7 +178,7 @@ namespace bigview
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error displaying records from file '{file}': {ex.Message}");
+                MessageBox.Show($"Error displaying records from file '{file}': {ex.Message}\r\n At: {ex.StackTrace}");
             }
 
 
