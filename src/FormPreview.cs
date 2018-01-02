@@ -64,10 +64,16 @@ namespace bigview
 
             var row = gridView.CurrentRow;
 
-            foreach (DataGridViewColumn col in gridView.Columns)
+            for (int i = 0; i < gridView.Columns.Count; i++)
             {
-                string fieldName = col.Name;
-                object rowValue = row.Cells[fieldName].Value;
+                var col = gridView.Columns[i];
+                string fieldName = col.DataPropertyName;
+                if (string.IsNullOrWhiteSpace(fieldName))
+                    fieldName = col.Name;
+
+                var cell = row.Cells[i];
+                object rowValue = cell.Value;
+
                 string fieldValue = rowValue == null ? string.Empty : rowValue.ToString();
 
                 gridRow.Rows.Add(fieldName, fieldValue);
@@ -220,7 +226,6 @@ namespace bigview
 
         private void gridView_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-
             UpdateStatusText(e.RowIndex);
         }
 
