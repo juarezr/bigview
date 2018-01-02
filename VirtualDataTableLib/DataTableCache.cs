@@ -139,7 +139,9 @@ namespace VirtualDataTableLib
 
                 for (int page = firstPageToLoad; page <= nextPageNumber; page++)
                 {
-                    LoadPageNumber(page);
+                    var cachedPage = LoadPageNumber(page);
+                    if (cachedPage == null || !cachedPage.Full)
+                        break;
                 }
                 return;
             }
@@ -153,7 +155,9 @@ namespace VirtualDataTableLib
 
                 for (int page = lastPageToLoad; page >= prevPageNumber; page--)
                 {
-                    LoadPageNumber(page);
+                    var cachedPage = LoadPageNumber(page);
+                    if (cachedPage == null || !cachedPage.Full)
+                        break;
                 }
             }
         }
@@ -161,7 +165,14 @@ namespace VirtualDataTableLib
         private DataPage LoadPageNumber(int pageNumber)
         {
             int boundary = MapToLowestIndex(RowsPerPage, pageNumber);
+
             var pageData = dataRetriever.SupplyPageOfData(boundary, RowsPerPage);
+            if (pageData == null)
+            {
+                SetTotalRowCount(maxCachedRowIndex);
+                return null;
+            }
+
             var cachedPage = new DataPage(pageData, RowsPerPage, pageNumber);
 
             int maxIndex = cachedPage.HighestIndex + 1;
@@ -232,7 +243,7 @@ namespace VirtualDataTableLib
             for (int i = 0; i < cachePageSize; i++)
             {
                 var cachedPage = LoadPageNumber(i);
-                if (!cachedPage.Full)
+                if (cachedPage == null || !cachedPage.Full)
                     break;
             }
 
