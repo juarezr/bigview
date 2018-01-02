@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="AvroBzip2Codec.cs" />
     <Compile Include="AvroRetriever.cs" />
+    <Compile Include="AvroXZCodec.cs" />
     <Compile Include="DataRetriever.cs" />
     <Compile Include="DataTableCache.cs" />
     <Compile Include="ParquetRetriever.cs" />
