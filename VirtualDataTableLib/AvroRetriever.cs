@@ -9,7 +9,8 @@ namespace VirtualDataTableLib
     {
         #region Properties
 
-        private IFileReader<GenericRecord> dataFileReader = null;
+        private IFileReader<GenericRecord> dataFileReader;
+        private long firstSync;
 
         public override int? GetTotalRowCount()
         {
@@ -31,6 +32,8 @@ namespace VirtualDataTableLib
                 string prop = dataFileReader.GetMetaString(key);
                 SetProperty(key, prop);
             }
+
+            firstSync = dataFileReader.Tell();
         }
 
         public override void Dispose()
@@ -61,26 +64,32 @@ namespace VirtualDataTableLib
 
             DataTable table = null;
 
-            // TODO : Avro -> Sync directly to the record number
+            // TODO : Avro -> register trail record number to sync directly to the record number with seek
 
-            if (lastLowerPageBoundary != lowerPageBoundary + rowsPerPage - 1)
+            int upperBoundary = lowerPageBoundary + rowsPerPage - 1;
+            int previousBoundary = lowerPageBoundary - rowsPerPage;
+
+            bool sequentialReading = lastLowerPageBoundary == previousBoundary;
+
+            if (!sequentialReading)
                 dataFileReader.Sync(0);
 
             lastLowerPageBoundary = lowerPageBoundary;
 
-            int row = 0;
-            int lastrow = lowerPageBoundary + rowsPerPage - 1;
-            foreach (var record in dataFileReader.NextEntries)
-            {
-                if (row >= lowerPageBoundary)
-                {
-                    if (table == null)
-                        table = CreateDataTableFromSchema(record.Schema);
+            int row = sequentialReading ? lowerPageBoundary : 0;
 
-                    ConvertToDataRow(table, record);
-                }
-                if (row >= lastrow)
-                    break;
+            while (dataFileReader.HasNext())
+            {
+                var record = dataFileReader.Next();
+
+                if (table == null)
+                    table = CreateDataTableFromSchema(record.Schema);
+
+                ConvertToDataRow(table, record);
+
+                if (row >= upperBoundary)
+                    return table;
+
                 row += 1;
             }
 
