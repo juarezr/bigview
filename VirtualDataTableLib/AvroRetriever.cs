@@ -10,7 +10,6 @@ namespace VirtualDataTableLib
         #region Properties
 
         private IFileReader<GenericRecord> dataFileReader;
-        private long firstSync;
 
         public override int? GetTotalRowCount()
         {
@@ -32,8 +31,6 @@ namespace VirtualDataTableLib
                 string prop = dataFileReader.GetMetaString(key);
                 SetProperty(key, prop);
             }
-
-            firstSync = dataFileReader.Tell();
         }
 
         public override void Dispose()
@@ -60,7 +57,7 @@ namespace VirtualDataTableLib
 
         protected DataTable ReadRecordsFromApache(int lowerPageBoundary, int rowsPerPage)
         {
-            // TODO: Handle snappy compression
+            // TODO: Handle snappy/xz/bzip2 compression modifiing apache.avro implementation
 
             DataTable table = null;
 
