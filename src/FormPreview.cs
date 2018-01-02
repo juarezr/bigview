@@ -9,6 +9,8 @@ namespace bigview
 {
     public partial class FormPreview : Form
     {
+        #region Init 
+
         public FormPreview()
         {
             InitializeComponent();
@@ -21,6 +23,10 @@ namespace bigview
         {
             LoadFileOnGrid(filename);
         }
+
+        #endregion Init 
+
+        #region UI Events
 
         private void openMenuItem_Click(object sender, EventArgs e)
         {
@@ -88,27 +94,14 @@ namespace bigview
         {
             selectTab(tabTable, sender);
         }
-
-        private void selectTab(TabPage tab, object sender)
+        private void allTabs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            allTabs.SelectedTab = tab;
-
-            // Set the current clicked item to item
-            var item = sender as ToolStripMenuItem;
-            var owner = item.OwnerItem as ToolStripDropDownItem;
-            // Loop through all items in the subMenu and uncheck them but do check the clicked item
-            foreach (ToolStripMenuItem tempItemp in owner.DropDownItems)
-            {
-                if (tempItemp == item)
-                    tempItemp.Checked = true;
-                else
-                    tempItemp.Checked = false;
-            }
-
-            viewAsButton.Image = item.Image;
+            displayAllowedPageControls();
         }
 
-        #region load
+        #endregion UI Events
+
+        #region File Load/Display
 
         private DataTableCache memoryCache;
 
@@ -242,10 +235,9 @@ namespace bigview
                 : string.Empty;
         }
 
-        #endregion load
-
-
-        #region Print
+        #endregion File Load/Display
+        
+        #region Printing
 
         private GridPrintDocument docToPrint = null;
 
@@ -435,11 +427,27 @@ namespace bigview
 
         #endregion
 
-        #endregion Print
+        #endregion Printing
 
-        private void allTabs_SelectedIndexChanged(object sender, EventArgs e)
+        #region Private Methods
+
+        private void selectTab(TabPage tab, object sender)
         {
-            displayAllowedPageControls();
+            allTabs.SelectedTab = tab;
+
+            // Set the current clicked item to item
+            var item = sender as ToolStripMenuItem;
+            var owner = item.OwnerItem as ToolStripDropDownItem;
+            // Loop through all items in the subMenu and uncheck them but do check the clicked item
+            foreach (ToolStripMenuItem tempItemp in owner.DropDownItems)
+            {
+                if (tempItemp == item)
+                    tempItemp.Checked = true;
+                else
+                    tempItemp.Checked = false;
+            }
+
+            viewAsButton.Image = item.Image;
         }
 
         private void displayAllowedPageControls()
@@ -492,5 +500,6 @@ namespace bigview
             }
         }
 
+        #endregion Private Methods
     }
 }
