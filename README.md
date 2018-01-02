@@ -11,11 +11,13 @@ Desktop app for displaying data from common big data file formats as parquet, av
 ## File Formats supported
 
 * [Parquet](https://parquet.apache.org/)
+* [Avro](https://avro.apache.org) (uncompressed, deflate)
 
 ## Status
 
 * Working In Progress...
-* First working version
+* Alpha stage
+* Should work well for local files
 * Windows only 
 
 ## Building
@@ -24,16 +26,16 @@ Desktop app for displaying data from common big data file formats as parquet, av
 
 ## Roadmap
 
+* Can you help developing?
+
 ### Goals
 
 * Support: preview/inspecting of common file formats used in big data (all-in-one)
 * Productivity: Use already existing tecnology, libraries, existing code example (stackoverflow, googling examples)
 * Pragmatism
 
-### Unpriorized list
+### Unpriorized feature list
 
-* Core:
-  - Do not load whole file. Allowing reading big files wiht many GB of size.
 * Tools
   - Row/field filtering
   - Search and replace
@@ -41,7 +43,6 @@ Desktop app for displaying data from common big data file formats as parquet, av
   - Convert between file formats
   - File editing  
 * File Formats planned:
-  - [Avro](https://avro.apache.org)
   - Delimited text files, CSV.
   - Fixed length text files
   - [ORC](https://orc.apache.org)
