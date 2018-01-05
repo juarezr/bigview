@@ -37,6 +37,29 @@ namespace bigview
             }
         }
 
+        private void viewAsPrintedMenuItem_Click(object sender, EventArgs e)
+        {
+            bool isTable = allTabs.SelectedTab == tabTable;
+            var grid = isTable ? gridView : gridRow;
+
+            createNewDocumentWith(grid, isTable);
+
+            printPreview.Document = getPrintDoc();
+            selectTab(tabPrinted, sender);
+        }
+
+
+        private void exportMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                bool isTable = allTabs.SelectedTab == tabTable;
+                var grid = isTable ? gridView : gridRow;
+
+                ExcelExport.ExportTo(grid, saveFileDialog.FileName);
+            }
+        }
+
         private void closeMenuItem_Click(object sender, EventArgs e)
         {
             CloseLoadedFile();
@@ -240,17 +263,6 @@ namespace bigview
         #region Printing
 
         private GridPrintDocument docToPrint = null;
-
-        private void viewAsPrintedMenuItem_Click(object sender, EventArgs e)
-        {
-            bool isTable = allTabs.SelectedTab == tabTable;
-            var grid = isTable ? gridView : gridRow;
-
-            createNewDocumentWith(grid, isTable);
-
-            printPreview.Document = getPrintDoc();
-            selectTab(tabPrinted, sender);
-        }
 
         private void createNewDocumentWith(DataGridView grid, bool landscape)
         {
@@ -501,5 +513,6 @@ namespace bigview
         }
 
         #endregion Private Methods
+
     }
 }

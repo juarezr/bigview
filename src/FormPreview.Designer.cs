@@ -46,6 +46,7 @@
             this.fileButton = new System.Windows.Forms.ToolStripSplitButton();
             this.openMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openMenuItemSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.closeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewAsButton = new System.Windows.Forms.ToolStripDropDownButton();
@@ -81,6 +82,7 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.printDialog = new System.Windows.Forms.PrintDialog();
             this.pageSetupDialog = new System.Windows.Forms.PageSetupDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.toolbarContainer.ContentPanel.SuspendLayout();
             this.toolbarContainer.TopToolStripPanel.SuspendLayout();
             this.toolbarContainer.SuspendLayout();
@@ -247,6 +249,7 @@
             this.fileButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openMenuItem,
             this.printMenuItem,
+            this.exportMenuItem,
             this.openMenuItemSeparator1,
             this.closeMenuItem});
             resources.ApplyResources(this.fileButton, "fileButton");
@@ -267,6 +270,13 @@
             resources.ApplyResources(this.printMenuItem, "printMenuItem");
             this.printMenuItem.Tag = "print";
             this.printMenuItem.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // exportMenuItem
+            // 
+            this.exportMenuItem.Name = "exportMenuItem";
+            resources.ApplyResources(this.exportMenuItem, "exportMenuItem");
+            this.exportMenuItem.Tag = "view";
+            this.exportMenuItem.Click += new System.EventHandler(this.exportMenuItem_Click);
             // 
             // openMenuItemSeparator1
             // 
@@ -514,6 +524,11 @@
             this.printDialog.AllowSomePages = true;
             this.printDialog.UseEXDialog = true;
             // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "xlsx";
+            resources.ApplyResources(this.saveFileDialog, "saveFileDialog");
+            // 
             // FormPreview
             // 
             resources.ApplyResources(this, "$this");
@@ -591,6 +606,8 @@
         private System.Windows.Forms.ToolStripMenuItem zoomTo10;
         private System.Windows.Forms.ToolStripSeparator openMenuItemSeparator1;
         private System.Windows.Forms.ToolStripMenuItem closeMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }
 

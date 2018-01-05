@@ -388,7 +388,7 @@
     <value>toolStripContainer1</value>
   </data>
   <metadata name="toolbarMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>653, 17</value>
+    <value>639, 17</value>
   </metadata>
   <data name="toolbarMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
@@ -397,7 +397,7 @@
     <value>Ctrl+O</value>
   </data>
   <data name="openMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 22</value>
+    <value>147, 22</value>
   </data>
   <data name="openMenuItem.Text" xml:space="preserve">
     <value>&amp;Open</value>
@@ -406,13 +406,22 @@
     <value>Ctrl+P</value>
   </data>
   <data name="printMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 22</value>
+    <value>147, 22</value>
   </data>
   <data name="printMenuItem.Text" xml:space="preserve">
     <value>&amp;Print</value>
   </data>
+  <data name="exportMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+E</value>
+  </data>
+  <data name="exportMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 22</value>
+  </data>
+  <data name="exportMenuItem.Text" xml:space="preserve">
+    <value>&amp;Export</value>
+  </data>
   <data name="openMenuItemSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 6</value>
+    <value>144, 6</value>
   </data>
   <data name="closeMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -421,7 +430,7 @@
     <value>Ctrl+L</value>
   </data>
   <data name="closeMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 22</value>
+    <value>147, 22</value>
   </data>
   <data name="closeMenuItem.Text" xml:space="preserve">
     <value>C&amp;lose</value>
@@ -517,9 +526,9 @@
   <data name="btnPrint.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACPSURBVDhPzZJLCoAwDER7iS666e8cbr2a3tKFp/AH2tgR
-        bIm2uPLBQEgmQwoV/8J7PwTtubTWo3Ouhe0ZMqNMoL6UciqGvAScl9ElaPE8BVyU5t8DwqALb5xrAshn
-        re3RiiilFhpWqqEQrEYYU1FYjXCGkrAaMcas7CDjFrChlVITgJInGNivfNMA628Q4gBlZG1soXe+QQAA
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACPSURBVDhPzZI7CoAwEERzh5AiTX7nsPVqeksLT+EPNGtG
+        UFlNsPLBQJidHbaI+BchhC5qvcsY03vva8SeoTCeF8iXUg7ZkpeC/TK6BBbPU8FBbv69IA4apdRYUkA5
+        51wLK6G1nmhYqIpKsJpgQllhNcEFcsJqwlo7s4Mbp4IF1pWSAjx5YoD9yid1iP4GITZSkm1mzLcTugAA
         AABJRU5ErkJggg==
 </value>
   </data>
@@ -833,11 +842,17 @@
     <value>Supported Files Types|*.parquet;*.avro|Parquet Files|*.parquet|Avro Files|*.avro|All Files Types|*.*</value>
   </data>
   <metadata name="printDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>251, 17</value>
+    <value>380, 17</value>
   </metadata>
   <metadata name="pageSetupDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>370, 17</value>
+    <value>493, 17</value>
   </metadata>
+  <metadata name="saveFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>251, 17</value>
+  </metadata>
+  <data name="saveFileDialog.Filter" xml:space="preserve">
+    <value>Excel Spreadsheet|*.xlsx;|All Files Types|*.*</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -3950,6 +3965,12 @@
   <data name="&gt;&gt;printMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;exportMenuItem.Name" xml:space="preserve">
+    <value>exportMenuItem</value>
+  </data>
+  <data name="&gt;&gt;exportMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;openMenuItemSeparator1.Name" xml:space="preserve">
     <value>openMenuItemSeparator1</value>
   </data>
@@ -4153,6 +4174,12 @@
   </data>
   <data name="&gt;&gt;pageSetupDialog.Type" xml:space="preserve">
     <value>System.Windows.Forms.PageSetupDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveFileDialog.Name" xml:space="preserve">
+    <value>saveFileDialog</value>
+  </data>
+  <data name="&gt;&gt;saveFileDialog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FormPreview</value>

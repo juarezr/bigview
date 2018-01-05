@@ -265,6 +265,36 @@ namespace bigview
 
         #endregion Is<Type>
 
+        #region DateTime
+
+        public static bool IsValid(this DateTime value)
+        {
+            bool res = (value > DateTime.MinValue)
+                     && (value < DateTime.MaxValue);
+            return res;
+        }
+
+        public static bool IsValid(this DateTime? value)
+        {
+            bool res = (value.HasValue)
+                     && (value.Value > DateTime.MinValue)
+                     && (value.Value < DateTime.MaxValue);
+            return res;
+        }
+
+        public static bool IsNotValid(this DateTime value)
+        {
+            return !IsValid(value);
+        }
+
+        public static bool IsNotValid(this DateTime? value)
+        {
+            return !IsValid(value);
+        }
+
+
+
+        #endregion DateTime
 
     }
 }
